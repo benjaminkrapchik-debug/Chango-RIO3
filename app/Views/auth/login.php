@@ -39,7 +39,7 @@
 </body>
 </html>
     <p>
-        ¿Ya tenés una cuenta?
+        ¿Ya tenés una cuenta????
         <a href="<?= base_url('login') ?>">Iniciar sesión</a>
     </p>
 
