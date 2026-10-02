@@ -53,21 +53,18 @@
                 <td><?= $producto['stock'] ?></td>
 
                 <td>
-
-                    <a
-                        href="<?= base_url('productos/editar/' . $producto['id']) ?>"
-                        class="btn btn-warning btn-sm">
+                    <a href="<?= base_url('productos/editar/' . $producto['id']) ?>"
+                       class="btn btn-warning btn-sm">
                         Editar
                     </a>
-
-                    <a
-                        href="<?= base_url('productos/eliminar/' . $producto['id']) ?>"
-                        class="btn btn-danger btn-sm"
-                        onclick="return confirm('¿Eliminar este producto?')">
+                
+                    <a href="<?= base_url('productos/eliminar/' . $producto['id']) ?>"
+                       class="btn btn-danger btn-sm"
+                       onclick="return confirm('¿Eliminar este producto?')">
                         Eliminar
                     </a>
-
                 </td>
+                
 
             </tr>
 
