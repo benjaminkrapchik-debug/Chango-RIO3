@@ -35,14 +35,7 @@
         ¿No tenés una cuenta?
         <a href="<?= base_url('register') ?>">Registrate</a>
     </p>
-
-</body>
-</html>
-    <p>
-        ¿Ya tenés una cuenta????
-        <a href="<?= base_url('login') ?>">Iniciar sesión</a>
-    </p>
-<!-- VENTANA MODAL DE INICIO DE SESIÓN -->
+    <!-- VENTANA MODAL DE INICIO DE SESIÓN -->
 <div id="modal-login" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
   <div style="background: white; padding: 30px; border-radius: 8px; width: 320px; box-shadow: 0px 4px 10px rgba(0,0,0,0.3); position: relative;">
     
@@ -67,6 +60,14 @@
     
   </div>
 </div>
+
+</body>
+</html>
+    <p>
+        ¿Ya tenés una cuenta????
+        <a href="<?= base_url('login') ?>">Iniciar sesión</a>
+    </p>
+
 
 </body>
 </html>
