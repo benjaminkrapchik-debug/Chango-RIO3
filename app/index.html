@@ -7,6 +7,64 @@
 
 <p>Directory access is forbidden.</p>
 
-
+<!-- BARRA DE NAVEGACIÓN -->
+<nav class="navbar">
+    <span>Mi tienda</span>
+    <!-- Botones de control de sesión -->
+    <div id="auth-buttons">
+      <button id="btn-ingresar" onclick="mostrarLogin()">Ingresar</button>
+      <button id="btn-registrarse">Registrarse</button>
+    </div>
+    <div id="user-menu" style="display: none;">
+      <span id="user-name">Bienvenido, Usuario</span>
+      <button onclick="cerrarSesion()">Cerrar Sesión</button>
+    </div>
+  </nav>
+  
+  <!-- CONTENIDO PRINCIPAL -->
+  <main>
+    <!-- 1. Vista Pública: Bienvenida (Visible por defecto) -->
+    <section id="vista-bienvenida">
+      <h1>Bienvenido a la plataforma</h1>
+      <p>Iniciá sesión o registrate desde el menú superior para comenzar.</p>
+    </section>
+  
+    <!-- 2. Vista Privada: Tu CRUD de Productos (Oculto al inicio) -->
+    <section id="vista-crud" style="display: none;">
+      <div class="crud-header">
+        <h2>Productos</h2>
+        <button class="btn-nuevo">Nuevo producto</button>
+      </div>
+      
+      <!-- Tu tabla actual del CRUD -->
+      <table class="tabla-productos">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Precio</th>
+            <th>Stock</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Las filas que ya tienes diseñadas -->
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>$</td>
+            <td></td>
+            <td>
+              <button class="btn-editar">Editar</button>
+              <button class="btn-eliminar">Eliminar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+  
 </body>
 </html>
