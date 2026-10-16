@@ -24,3 +24,8 @@ $routes->post('registrar', 'Auth::registrar');
 
 $routes->get('dashboard', 'Auth::dashboard');
 $routes->get('logout', 'Auth::logout');
+
+$routes->get('login', 'Auth::login');
+$routes->post('login', 'Auth::login');
+$routes->get('dashboard', 'Auth::dashboard');
+$routes->get('logout', 'Auth::logout');
