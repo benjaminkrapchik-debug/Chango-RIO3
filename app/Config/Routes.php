@@ -8,11 +8,13 @@ use CodeIgniter\Router\RouteCollection;
 
  $routes->get('/', 'Home::index');
 
- $routes->get('login', 'Auth::login');
- $routes->post('iniciarSesion', 'Auth::iniciarSesion');
- 
- $routes->get('register', 'Auth::register');
- $routes->post('guardarRegistro', 'Auth::guardarRegistro');
- 
- $routes->get('dashboard', 'Auth::dashboard');
- $routes->get('logout', 'Auth::logout');
+$routes->get('login', 'Auth::login');
+$routes->post('iniciarSesion', 'Auth::iniciarSesion');
+
+$routes->get('register', 'Auth::register');
+$routes->post('guardarRegistro', 'Auth::guardarRegistro');
+
+$routes->get('dashboard', 'Auth::dashboard');
+$routes->get('logout', 'Auth::logout');
+
+$routes->get('productos', 'Producto::index');

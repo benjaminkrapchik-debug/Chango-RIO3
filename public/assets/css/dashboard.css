@@ -1,0 +1,131 @@
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f1f5f9;
+    color: #1e293b;
+}
+
+.barra {
+    background: #172554;
+    color: white;
+    padding: 18px 6%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.marca {
+    color: white;
+    font-size: 22px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.barra nav {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.barra nav a {
+    color: white;
+    text-decoration: none;
+}
+
+.barra nav a:hover {
+    color: #93c5fd;
+}
+
+.contenedor {
+    width: min(1000px, 92%);
+    margin: 40px auto;
+}
+
+.bienvenida,
+.tarjeta {
+    background: white;
+    padding: 30px;
+    border-radius: 14px;
+    margin-bottom: 24px;
+    box-shadow: 0 5px 20px #0f172a12;
+}
+
+.etiqueta {
+    color: #2563eb;
+    font-weight: bold;
+    letter-spacing: 2px;
+    font-size: 12px;
+}
+
+h1 {
+    font-size: clamp(28px, 4vw, 38px);
+    margin-bottom: 10px;
+}
+
+.datos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 22px 0;
+}
+
+.acciones {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.boton {
+    display: inline-block;
+    padding: 12px 18px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.principal {
+    color: white;
+    background: #2563eb;
+}
+
+.principal:hover {
+    background: #1d4ed8;
+}
+
+.secundario {
+    color: #b91c1c;
+    background: #fee2e2;
+}
+
+.secundario:hover {
+    background: #fecaca;
+}
+
+footer {
+    padding: 20px;
+    text-align: center;
+    color: #64748b;
+}
+
+@media (max-width: 600px) {
+    .barra {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .barra nav {
+        gap: 14px;
+    }
+
+    .bienvenida,
+    .tarjeta {
+        padding: 22px;
+    }
+}
