@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\ProductoModel;
 use App\Models\UserModel;
 use CodeIgniter\Controller;
 
