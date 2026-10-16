@@ -6,7 +6,18 @@ use CodeIgniter\Model;
 
 class ProductoModel extends Model
 {
-    protected $table = 'productos';
-    protected $primaryKey = 'id';
-    protected $returnType = 'array';
+    protected $table            = 'productos';
+    protected $primaryKey       = 'id';
+    protected $useAutoIncrement = true;
+    protected $returnType       = 'array';
+    protected $useSoftDeletes   = false;
+
+    protected $allowedFields = [
+        'nombre',
+        'descripcion',
+        'precio',
+        'stock'
+    ];
+
+    protected $useTimestamps = false;
 }
