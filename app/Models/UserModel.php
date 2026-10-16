@@ -4,7 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class UsuarioModel extends Model
+class UserModel extends Model
 {
     protected $table = 'usuarios';
     protected $primaryKey = 'id';
@@ -15,7 +15,6 @@ class UsuarioModel extends Model
         'password'
     ];
 
-    protected $useTimestamps = true;
-    protected $createdField = 'created_at';
-    protected $updatedField = 'updated_at';
+    protected $returnType = 'array';
+    protected $useTimestamps = false;
 }

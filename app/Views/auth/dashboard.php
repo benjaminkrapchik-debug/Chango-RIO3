@@ -7,7 +7,9 @@
 </head>
 <body>
 
-    <h1>¡Bienvenido/a, <?= esc(session()->get('usuario_nombre')) ?>!</h1>
+    <h1>
+        ¡Bienvenido/a, <?= esc(session()->get('usuario_nombre')) ?>!
+    </h1>
 
     <p>Iniciaste sesión correctamente.</p>
 
@@ -16,7 +18,7 @@
         <?= esc(session()->get('usuario_email')) ?>
     </p>
 
-    <form action="<?= base_url('logout') ?>" method="post">
+    <form action="<?= site_url('logout') ?>" method="post">
         <?= csrf_field() ?>
         <button type="submit">Cerrar sesión</button>
     </form>

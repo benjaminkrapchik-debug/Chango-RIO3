@@ -15,3 +15,12 @@ use CodeIgniter\Router\RouteCollection;
  
  $routes->get('dashboard', 'Dashboard::index');
  $routes->post('logout', 'Auth::logout');
+
+ $routes->get('login', 'Auth::login');
+$routes->post('iniciarSesion', 'Auth::iniciarSesion');
+
+$routes->get('register', 'Auth::register');
+$routes->post('registrar', 'Auth::registrar');
+
+$routes->get('dashboard', 'Auth::dashboard');
+$routes->get('logout', 'Auth::logout');

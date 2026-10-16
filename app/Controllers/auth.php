@@ -2,33 +2,34 @@
 
 namespace App\Controllers;
 
-use App\Models\UsuarioModel;
+use App\Models\UserModel;
+use CodeIgniter\Controller;
 
-class Auth extends BaseController
+class Auth extends Controller
 {
     public function login()
     {
-        if (session()->get('usuario_id')) {
-            return redirect()->to(base_url('dashboard'));
+        if (session()->get('logueado')) {
+            return redirect()->to(site_url('dashboard'));
         }
 
-        return view('login');
+        return view('auth/login');
     }
 
     public function register()
     {
-        if (session()->get('usuario_id')) {
-            return redirect()->to(base_url('dashboard'));
+        if (session()->get('logueado')) {
+            return redirect()->to(site_url('dashboard'));
         }
 
-        return view('register');
+        return view('auth/register');
     }
 
     public function guardarRegistro()
     {
         $reglas = [
             'nombre' => 'required|min_length[2]|max_length[100]',
-            'email' => 'required|valid_email|max_length[190]',
+            'email' => 'required|valid_email|max_length[255]|is_unique[usuarios.email]',
             'password' => 'required|min_length[8]|max_length[72]'
         ];
 
@@ -38,85 +39,68 @@ class Auth extends BaseController
                 ->with('errores', $this->validator->getErrors());
         }
 
-        $usuarios = new UsuarioModel();
-        $email = strtolower(trim($this->request->getPost('email')));
+        $usuarios = new UserModel();
 
-        if ($usuarios->where('email', $email)->first()) {
-            return redirect()->back()
-                ->withInput()
-                ->with('error', 'Ese correo ya está registrado.');
-        }
-
-        $id = $usuarios->insert([
+        $usuarios->insert([
             'nombre' => trim($this->request->getPost('nombre')),
-            'email' => $email,
+            'email' => strtolower(trim($this->request->getPost('email'))),
             'password' => password_hash(
                 $this->request->getPost('password'),
                 PASSWORD_DEFAULT
             )
         ]);
 
-        if (!$id) {
-            return redirect()->back()
-                ->withInput()
-                ->with('error', 'No se pudo crear la cuenta.');
-        }
-
-        // Iniciar sesión automáticamente después del registro.
-        session()->regenerate(true);
-
-        session()->set([
-            'usuario_id' => $id,
-            'usuario_nombre' => trim($this->request->getPost('nombre')),
-            'usuario_email' => $email
-        ]);
-
-        return redirect()->to(base_url('dashboard'));
+        return redirect()->to(site_url('login'))
+            ->with('error', 'Cuenta creada correctamente. Ahora podés iniciar sesión.');
     }
 
     public function iniciarSesion()
     {
-        $reglas = [
-            'email' => 'required|valid_email',
-            'password' => 'required'
-        ];
+        $email = strtolower(trim((string) $this->request->getPost('email')));
+        $password = (string) $this->request->getPost('password');
 
-        if (!$this->validate($reglas)) {
+        if ($email === '' || $password === '') {
             return redirect()->back()
                 ->withInput()
-                ->with('error', 'Introduce un correo y una contraseña válidos.');
+                ->with('error', 'Completá el correo y la contraseña.');
         }
 
-        $email = strtolower(trim($this->request->getPost('email')));
-        $password = $this->request->getPost('password');
+        $usuarios = new UserModel();
 
-        $usuarios = new UsuarioModel();
         $usuario = $usuarios->where('email', $email)->first();
 
-        if (
-            !$usuario ||
-            !password_verify($password, $usuario['password'])
-        ) {
+        if (!$usuario || !password_verify($password, $usuario['password'])) {
             return redirect()->back()
-                ->with('error', 'Correo o contraseña incorrectos.');
+                ->with('error', 'El correo o la contraseña son incorrectos.');
         }
 
-        // Regenerar el identificador de sesión tras autenticarse.
-        session()->regenerate(true);
+        session()->regenerate();
 
         session()->set([
             'usuario_id' => $usuario['id'],
             'usuario_nombre' => $usuario['nombre'],
-            'usuario_email' => $usuario['email']
+            'usuario_email' => $usuario['email'],
+            'logueado' => true
         ]);
 
-        return redirect()->to(base_url('dashboard'));
+        return redirect()->to(site_url('dashboard'));
+    }
+
+    public function dashboard()
+    {
+        if (!session()->get('logueado')) {
+            return redirect()->to(site_url('login'))
+                ->with('error', 'Iniciá sesión para acceder a tu cuenta.');
+        }
+
+        return view('auth/dashboard');
     }
 
     public function logout()
     {
         session()->destroy();
 
-        return redirect()->to(base_url('login'));
+        return redirect()->to(site_url('login'))
+            ->with('error', 'Cerraste sesión correctamente.');
     }
 }

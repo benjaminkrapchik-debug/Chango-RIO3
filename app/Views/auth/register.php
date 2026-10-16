@@ -23,51 +23,58 @@
         <?php endforeach; ?>
     <?php endif; ?>
 
-    <form action="<?= base_url('guardarRegistro') ?>" method="post">
+    <form action="<?= site_url('guardarRegistro') ?>" method="post">
         <?= csrf_field() ?>
 
-        <label for="nombre">Nombre:</label>
-        <input
-            type="text"
-            id="nombre"
-            name="nombre"
-            value="<?= esc(old('nombre') ?? '') ?>"
-            autocomplete="name"
-            required
-        >
+        <div>
+            <label for="nombre">Nombre:</label>
+            <input
+                type="text"
+                id="nombre"
+                name="nombre"
+                value="<?= esc(old('nombre') ?? '') ?>"
+                autocomplete="name"
+                required
+            >
+        </div>
 
-        <br><br>
+        <br>
 
-        <label for="email">Email:</label>
-        <input
-            type="email"
-            id="email"
-            name="email"
-            value="<?= esc(old('email') ?? '') ?>"
-            autocomplete="email"
-            required
-        >
+        <div>
+            <label for="email">Correo electrónico:</label>
+            <input
+                type="email"
+                id="email"
+                name="email"
+                value="<?= esc(old('email') ?? '') ?>"
+                autocomplete="email"
+                required
+            >
+        </div>
 
-        <br><br>
+        <br>
 
-        <label for="password">Contraseña:</label>
-        <input
-            type="password"
-            id="password"
-            name="password"
-            autocomplete="new-password"
-            minlength="8"
-            required
-        >
+        <div>
+            <label for="password">Contraseña:</label>
+            <input
+                type="password"
+                id="password"
+                name="password"
+                autocomplete="new-password"
+                minlength="8"
+                required
+            >
+            <small>Debe tener al menos 8 caracteres.</small>
+        </div>
 
-        <br><br>
+        <br>
 
         <button type="submit">Registrarme</button>
     </form>
 
     <p>
         ¿Ya tenés una cuenta?
-        <a href="<?= base_url('login') ?>">Iniciar sesión</a>
+        <a href="<?= site_url('login') ?>">Iniciar sesión</a>
     </p>
 
 </body>

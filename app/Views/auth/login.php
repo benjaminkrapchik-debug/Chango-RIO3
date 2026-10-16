@@ -23,37 +23,41 @@
         <?php endforeach; ?>
     <?php endif; ?>
 
-    <form action="<?= base_url('iniciarSesion') ?>" method="post">
+    <form action="<?= site_url('iniciarSesion') ?>" method="post">
         <?= csrf_field() ?>
 
-        <label for="email">Email:</label>
-        <input
-            type="email"
-            id="email"
-            name="email"
-            autocomplete="email"
-            required
-        >
+        <div>
+            <label for="email">Correo electrónico:</label>
+            <input
+                type="email"
+                id="email"
+                name="email"
+                autocomplete="email"
+                required
+            >
+        </div>
 
-        <br><br>
+        <br>
 
-        <label for="password">Contraseña:</label>
-        <input
-            type="password"
-            id="password"
-            name="password"
-            autocomplete="current-password"
-            required
-        >
+        <div>
+            <label for="password">Contraseña:</label>
+            <input
+                type="password"
+                id="password"
+                name="password"
+                autocomplete="current-password"
+                required
+            >
+        </div>
 
-        <br><br>
+        <br>
 
         <button type="submit">Ingresar</button>
     </form>
 
     <p>
         ¿No tenés una cuenta?
-        <a href="<?= base_url('register') ?>">Registrate</a>
+        <a href="<?= site_url('register') ?>">Registrate acá</a>
     </p>
 
 </body>
