@@ -89,11 +89,14 @@ class Auth extends Controller
     public function dashboard()
     {
         if (!session()->get('logueado')) {
-            return redirect()->to(site_url('login'))
-                ->with('error', 'Iniciá sesión para acceder a tu cuenta.');
+            return redirect()->to(site_url('login'));
         }
-
-        return view('auth/dashboard');
+    
+        $productoModel = new ProductoModel();
+    
+        return view('auth/dashboard', [
+            'productos' => $productoModel->findAll()
+        ]);
     }
 
     public function logout()
