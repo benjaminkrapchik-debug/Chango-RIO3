@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use App\Models\ProductoModel;
 
-class Producto extends BaseController
+class Productos extends BaseController
 {
     public function index()
     {
