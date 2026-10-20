@@ -1,29 +1,17 @@
 <?php
-namespace App\Models;
 
-use CodeIgniter\Model;
+namespace App\Controllers;
 
-class ProductoModel extends Model
+use App\Models\ProductoModel;
+
+class Producto extends BaseController
 {
- {
     public function index()
     {
-        return view('producto/index');
+        $productoModel = new ProductoModel();
+
+        $datos['productos'] = $productoModel->findAll();
+
+        return view('producto/index', $datos);
     }
-}
-
-    protected $table            = 'productos';
-    protected $primaryKey       = 'id';
-    protected $useAutoIncrement = true;
-    protected $returnType       = 'array';
-    protected $useSoftDeletes   = false;
-
-    protected $allowedFields = [
-        'nombre',
-        'descripcion',
-        'precio',
-        'stock'
-    ];
-
-    protected $useTimestamps = false;
 }
