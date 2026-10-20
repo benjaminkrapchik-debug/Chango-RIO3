@@ -5,7 +5,14 @@ use CodeIgniter\Model;
 
 class ProductoModel extends Model
 {
-   
+    public function index()
+    {
+        $productoModel = new ProductoModel();
+
+        $datos['productos'] = $productoModel->findAll();
+
+        return view('producto/index', $datos);
+    }
 
     protected $table            = 'productos';
     protected $primaryKey       = 'id';
