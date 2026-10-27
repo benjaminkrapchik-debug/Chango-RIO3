@@ -11,7 +11,7 @@ class Auth extends Controller
     public function login()
     {
         if (session()->get('logueado')) {
-            return redirect()->to(site_url('dashboard'));
+            return redirect()->to(site_url('/'));
         }
 
         return view('auth/login');
@@ -20,7 +20,7 @@ class Auth extends Controller
     public function register()
     {
         if (session()->get('logueado')) {
-            return redirect()->to(site_url('dashboard'));
+            return redirect()->to(site_url('/'));
         }
 
         return view('auth/register');
@@ -51,13 +51,16 @@ class Auth extends Controller
             )
         ]);
 
-        return redirect()->to(site_url('login'))
-            ->with('error', 'Cuenta creada correctamente. Ahora podés iniciar sesión.');
+        return redirect()->to(site_url('/'))
+            ->with('mensaje', 'Cuenta creada correctamente.');
     }
 
     public function iniciarSesion()
     {
-        $email = strtolower(trim((string) $this->request->getPost('email')));
+        $email = strtolower(
+            trim((string) $this->request->getPost('email'))
+        );
+
         $password = (string) $this->request->getPost('password');
 
         if ($email === '' || $password === '') {
@@ -70,13 +73,15 @@ class Auth extends Controller
 
         $usuario = $usuarios->where('email', $email)->first();
 
-        if (!$usuario || !password_verify($password, $usuario['password'])) {
+        if (
+            !$usuario ||
+            !password_verify($password, $usuario['password'])
+        ) {
             return redirect()->back()
                 ->with('error', 'El correo o la contraseña son incorrectos.');
         }
 
-        session()->regenerate();
-
+        // Guardar los datos del usuario en la sesión.
         session()->set([
             'usuario_id' => $usuario['id'],
             'usuario_nombre' => $usuario['nombre'],
@@ -84,7 +89,8 @@ class Auth extends Controller
             'logueado' => true
         ]);
 
-        return redirect()->to(site_url('dashboard'));
+        // Volver al menú principal.
+        return redirect()->to(site_url('/'));
     }
 
     public function dashboard()
@@ -92,9 +98,9 @@ class Auth extends Controller
         if (!session()->get('logueado')) {
             return redirect()->to(site_url('login'));
         }
-    
+
         $productoModel = new ProductoModel();
-    
+
         return view('auth/dashboard', [
             'productos' => $productoModel->findAll()
         ]);
@@ -104,20 +110,6 @@ class Auth extends Controller
     {
         session()->destroy();
 
-        return redirect()->to(site_url('login'))
-            ->with('error', 'Cerraste sesión correctamente.');
+        return redirect()->to(site_url('/'));
     }
-
-    session()->regenerate();
-
-return redirect()->to(site_url('/'));
-public function logout()
-
-{
-    session()->destroy();
-
-    return redirect()->to(site_url('/'));
-}
-return redirect()->to(site_url('/'))
-    ->with('mensaje', 'Registro realizado correctamente.');
 }
