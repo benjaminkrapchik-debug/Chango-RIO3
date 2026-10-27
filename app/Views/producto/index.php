@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Comparador de precios</title>
     <link rel="stylesheet"
-          href="<?= base_url('assets/css/productos.css') ?>">
+      href="<?= base_url('assets/css/productos.css') ?>">
 </head>
 <body>
 

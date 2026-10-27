@@ -3,21 +3,25 @@
     box-sizing: border-box;
 }
 
-body {
+html, body {
     margin: 0;
+    min-height: 100%;
+}
+
+body {
     min-height: 100vh;
     font-family: "Courier New", monospace;
-    color: white;
+    color: #fff;
     background: linear-gradient(135deg, #39258d, #25284d, #172b38);
 }
 
 .cabecera {
     min-height: 85px;
-    padding: 15px 5%;
+    padding: 14px 5%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 15px;
+    gap: 12px;
 }
 
 .logo {
@@ -27,7 +31,7 @@ body {
     height: 68px;
     border: 5px solid #f34463;
     border-radius: 50%;
-    background: white;
+    background: #fff;
     text-decoration: none;
     font-size: 35px;
 }
@@ -36,31 +40,27 @@ body {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    gap: 8px;
     flex-wrap: wrap;
+    gap: 9px;
 }
 
-.menu-derecha form,
-.acciones form {
+.menu-derecha form {
     margin: 0;
 }
 
-.btn-carrito,
-.btn-secundario,
-.btn-nuevo {
+.btn-carrito, .btn-secundario, .btn-nuevo {
     display: inline-block;
-    padding: 12px;
+    padding: 11px 14px;
+    border: 0;
     border-radius: 9px;
     color: white;
     text-decoration: none;
-    border: 0;
-    cursor: pointer;
-    font: inherit;
+    font-family: inherit;
     font-size: 13px;
+    cursor: pointer;
 }
 
-.btn-carrito,
-.btn-nuevo {
+.btn-carrito, .btn-nuevo {
     background: #f34463;
 }
 
@@ -75,38 +75,40 @@ body {
 }
 
 h1 {
+    margin-bottom: 8px;
     text-align: center;
-    font-size: 27px;
+    font-size: 28px;
 }
 
 .subtitulo {
+    margin: 0 0 30px;
     text-align: center;
     color: #deddf4;
-    margin-bottom: 30px;
+    line-height: 1.5;
 }
 
 .buscador {
     height: 49px;
     display: flex;
     overflow: hidden;
-    background: white;
     border-radius: 13px;
+    background: white;
 }
 
 .buscador input {
     flex: 1;
     min-width: 0;
-    border: 0;
-    outline: none;
     padding: 0 16px;
+    border: none;
+    outline: none;
+    color: #222;
     font: inherit;
     font-weight: bold;
-    color: #222;
 }
 
 .buscador button {
-    width: 55px;
-    border: 0;
+    width: 56px;
+    border: none;
     background: #f34463;
     color: white;
     font-size: 27px;
@@ -117,8 +119,8 @@ h1 {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 12px;
     flex-wrap: wrap;
+    gap: 12px;
     margin: 18px 0 28px;
 }
 
@@ -135,7 +137,7 @@ h1 {
 
 .herramientas select {
     max-width: 190px;
-    padding: 10px;
+    padding: 10px 14px;
     border: none;
     border-radius: 22px;
     background: #f34463;
@@ -155,8 +157,9 @@ h1 {
     gap: 13px;
     padding: 14px;
     border-radius: 16px;
-    background: white;
+    background: #fff;
     color: #292943;
+    box-shadow: 0 5px 18px #00000015;
 }
 
 .foto-producto {
@@ -165,8 +168,8 @@ h1 {
     height: 85px;
     display: grid;
     place-items: center;
-    background: #f3f3f6;
     border-radius: 10px;
+    background: #f3f3f6;
     font-size: 36px;
 }
 
@@ -183,8 +186,8 @@ h1 {
 }
 
 .descripcion {
-    font-size: 11px;
     color: #777;
+    font-size: 11px;
 }
 
 .precio {
@@ -206,6 +209,10 @@ h1 {
     gap: 6px;
 }
 
+.acciones form {
+    margin: 0;
+}
+
 .btn-agregar {
     padding: 5px 16px;
     border: none;
@@ -221,11 +228,10 @@ h1 {
     cursor: not-allowed;
 }
 
-.btn-editar,
-.btn-eliminar {
+.btn-editar, .btn-eliminar {
     display: block;
     padding: 6px;
-    border: 0;
+    border: none;
     border-radius: 5px;
     text-align: center;
     text-decoration: none;
@@ -243,26 +249,36 @@ h1 {
     color: #b42338;
 }
 
-.carrito {
-    margin-top: 30px;
-    padding: 18px;
+.carrito, .formulario-producto {
+    margin-top: 28px;
+    padding: 20px;
     border: 1px solid #ffffff40;
     border-radius: 14px;
     background: #ffffff12;
 }
 
-.carrito button {
-    padding: 9px 13px;
-    border: 0;
-    border-radius: 6px;
-    cursor: pointer;
-}
-
-.aviso,
-.sin-productos {
-    padding: 12px;
+.aviso, .sin-productos {
+    padding: 13px;
     border-radius: 8px;
     background: #ffffff20;
+}
+
+.formulario-producto label {
+    display: block;
+    margin: 13px 0 6px;
+}
+
+.formulario-producto input,
+.formulario-producto textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font: inherit;
+}
+
+.formulario-producto button {
+    margin-top: 18px;
 }
 
 @media (max-width: 480px) {

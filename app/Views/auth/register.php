@@ -1,81 +1,62 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Crear cuenta</title>
+    <title>Crear cuenta - Mi tienda</title>
+    <link rel="stylesheet"
+          href="<?= base_url('assets/css/productos.css') ?>">
 </head>
 <body>
 
+<main class="contenedor">
     <h1>Crear cuenta</h1>
+    <p class="subtitulo">Registrate para comparar precios.</p>
 
-    <?php if ($error = session()->getFlashdata('error')): ?>
-        <p style="color: red;">
-            <?= esc($error) ?>
+    <?php foreach (session()->getFlashdata('errores') ?? [] as $error): ?>
+        <p class="aviso"><?= esc($error) ?></p>
+    <?php endforeach; ?>
+
+    <?php if (session()->getFlashdata('error')): ?>
+        <p class="aviso">
+            <?= esc(session()->getFlashdata('error')) ?>
         </p>
     <?php endif; ?>
 
-    <?php if ($errores = session()->getFlashdata('errores')): ?>
-        <?php foreach ($errores as $error): ?>
-            <p style="color: red;">
-                <?= esc($error) ?>
-            </p>
-        <?php endforeach; ?>
-    <?php endif; ?>
+    <form class="formulario-producto"
+          action="<?= site_url('guardarRegistro') ?>"
+          method="post">
 
-    <form action="<?= site_url('guardarRegistro') ?>" method="post">
         <?= csrf_field() ?>
 
-        <div>
-            <label for="nombre">Nombre:</label>
-            <input
-                type="text"
-                id="nombre"
-                name="nombre"
-                value="<?= esc(old('nombre') ?? '') ?>"
-                autocomplete="name"
-                required
-            >
-        </div>
+        <label for="nombre">Nombre completo</label>
+        <input id="nombre" name="nombre" type="text"
+               value="<?= esc(old('nombre') ?? '') ?>"
+               required minlength="2" maxlength="100">
 
-        <br>
+        <label for="email">Correo electrónico</label>
+        <input id="email" name="email" type="email"
+               value="<?= esc(old('email') ?? '') ?>"
+               required maxlength="255">
 
-        <div>
-            <label for="email">Correo electrónico:</label>
-            <input
-                type="email"
-                id="email"
-                name="email"
-                value="<?= esc(old('email') ?? '') ?>"
-                autocomplete="email"
-                required
-            >
-        </div>
+        <label for="password">Contraseña</label>
+        <input id="password" name="password" type="password"
+               required minlength="8" maxlength="72">
 
-        <br>
+        <button type="submit" class="btn-nuevo">
+            Registrarme
+        </button>
 
-        <div>
-            <label for="password">Contraseña:</label>
-            <input
-                type="password"
-                id="password"
-                name="password"
-                autocomplete="new-password"
-                minlength="8"
-                required
-            >
-            <small>Debe tener al menos 8 caracteres.</small>
-        </div>
+        <p>¿Ya tenés cuenta?
+            <a href="<?= site_url('login') ?>">Ingresá acá</a>
+        </p>
 
-        <br>
-
-        <button type="submit">Registrarme</button>
+        <a href="<?= site_url('/') ?>" class="btn-secundario">
+            Volver al menú principal
+        </a>
     </form>
-
-    <p>
-        ¿Ya tenés una cuenta?
-        <a href="<?= site_url('login') ?>">Iniciar sesión</a>
-    </p>
+</main>
 
 </body>
 </html>
