@@ -107,4 +107,17 @@ class Auth extends Controller
         return redirect()->to(site_url('login'))
             ->with('error', 'Cerraste sesión correctamente.');
     }
+
+    session()->regenerate();
+
+return redirect()->to(site_url('/'));
+public function logout()
+
+{
+    session()->destroy();
+
+    return redirect()->to(site_url('/'));
+}
+return redirect()->to(site_url('/'))
+    ->with('mensaje', 'Registro realizado correctamente.');
 }
