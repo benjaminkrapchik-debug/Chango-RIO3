@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Nuevo producto</title>
-
+    <link rel="stylesheet" href="<?= base_url('assets/css/productos.css') ?>">
     
 </head>
 
