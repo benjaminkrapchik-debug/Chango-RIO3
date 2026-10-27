@@ -2,13 +2,13 @@
 
 namespace App\Controllers;
 
-use App\Models\ProductoModel;
+use App\Models\ProductosModel;
 
-class Producto extends BaseController
+class Productos extends BaseController
 {
     public function index()
     {
-        $modelo = new ProductoModel();
+        $modelo = new ProductosModel();
 
         $buscar = trim((string) $this->request->getGet('buscar'));
         $orden = (string) $this->request->getGet('orden');
