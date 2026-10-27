@@ -25,3 +25,5 @@ $routes->post('productos/guardar', 'Producto::guardar');
 $routes->get('productos/editar/(:num)', 'Producto::editar/$1');
 $routes->post('productos/actualizar/(:num)', 'Producto::actualizar/$1');
 $routes->post('productos/eliminar/(:num)', 'Producto::eliminar/$1');
+$routes->post('logout', 'Auth::logout');
+$routes->get('productos', 'Producto::index');

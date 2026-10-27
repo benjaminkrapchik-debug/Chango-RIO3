@@ -43,6 +43,29 @@
 
             <?php endif; ?>
         </nav>
+        <nav>
+    <?php if (session()->get('logueado')): ?>
+
+        <span>
+            Hola, <?= esc(session()->get('usuario_nombre')) ?>
+        </span>
+
+        <a href="<?= site_url('productos') ?>">Productos</a>
+
+        <form action="<?= site_url('logout') ?>"
+              method="post"
+              style="display:inline">
+            <?= csrf_field() ?>
+            <button type="submit">Cerrar sesión</button>
+        </form>
+
+    <?php else: ?>
+
+        <a href="<?= site_url('login') ?>">Ingresar</a>
+        <a href="<?= site_url('registro') ?>">Registrarse</a>
+
+    <?php endif; ?>
+</nav>
     </header>
 
     <main class="principal">

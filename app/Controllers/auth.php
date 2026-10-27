@@ -81,7 +81,7 @@ class Auth extends Controller
                 ->with('error', 'El correo o la contraseña son incorrectos.');
         }
 
-        // Guardar los datos del usuario en la sesión.
+      
         session()->set([
             'usuario_id' => $usuario['id'],
             'usuario_nombre' => $usuario['nombre'],
@@ -89,7 +89,7 @@ class Auth extends Controller
             'logueado' => true
         ]);
 
-        // Volver al menú principal.
+       
         return redirect()->to(site_url('/'));
     }
 
@@ -109,7 +109,7 @@ class Auth extends Controller
     public function logout()
     {
         session()->destroy();
-
+    
         return redirect()->to(site_url('/'));
     }
 }
