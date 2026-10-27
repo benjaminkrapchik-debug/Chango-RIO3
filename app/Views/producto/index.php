@@ -191,7 +191,8 @@ function vaciarCarrito() {
     Object.keys(carrito).forEach(id => delete carrito[id]);
     mostrarCarrito();
 }
-</script>
 
+<script src="<?= base_url('assets/js/productos.js') ?>"></script>
+</body>
 </body>
 </html>
