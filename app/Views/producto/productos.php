@@ -1,71 +1,70 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Nuevo producto</title>
-    <link rel="stylesheet" href="<?= base_url('assets/css/productos.css') ?>">
-    
-</head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Comparador de precios</title>
 
+    <link rel="stylesheet"
+          href="<?= base_url('assets/css/productos.css') ?>">
+</head>
 <body>
 
-<div class="container mt-4">
+<nav class="barra">
+    <div>
+        <a href="<?= base_url('/') ?>">Inicio</a>
+        <a href="<?= base_url('productos') ?>">Productos</a>
+    </div>
 
-    <h1>Nuevo producto</h1>
+    <form action="<?= base_url('logout') ?>" method="post">
+        <?= csrf_field() ?>
+        <button type="submit">Cerrar sesión</button>
+    </form>
+</nav>
 
-    <form action="<?= base_url('productos/guardar') ?>" method="post">
+<main class="contenedor">
+    <header class="encabezado">
+        <h1>Comparador de precios</h1>
+        <p>Consultá los productos disponibles.</p>
+    </header>
 
-        <div class="mb-3">
-            <label>Nombre</label>
-            <input
-                type="text"
-                name="nombre"
-                class="form-control"
-                required
-            >
-        </div>
-
-        <div class="mb-3">
-            <label>Descripción</label>
-            <textarea
-                name="descripcion"
-                class="form-control"
-            ></textarea>
-        </div>
-
-        <div class="mb-3">
-            <label>Precio</label>
-            <input
-                type="number"
-                step="0.01"
-                name="precio"
-                class="form-control"
-                required
-            >
-        </div>
-
-        <div class="mb-3">
-            <label>Stock</label>
-            <input
-                type="number"
-                name="stock"
-                class="form-control"
-                required
-            >
-        </div>
-
-        <button class="btn btn-success">
-            Guardar
-        </button>
-
-        <a href="<?= base_url('productos') ?>"
-           class="btn btn-secondary">
-            Cancelar
-        </a>
-
+    <form class="filtros" action="<?= base_url('productos') ?>" method="get">
+        <input
+            type="search"
+            name="buscar"
+            placeholder="Buscar producto..."
+            value="<?= esc($buscar ?? '') ?>"
+        >
+        <button class="boton boton-azul" type="submit">Buscar</button>
     </form>
 
-</div>
+    <?php if (!empty($productos)): ?>
+        <section class="productos">
+            <?php foreach ($productos as $producto): ?>
+                <article class="producto">
+                    <h3><?= esc($producto['nombre']) ?></h3>
+
+                    <p>
+                        <?= esc($producto['descripcion'] ?? 'Sin descripción') ?>
+                    </p>
+
+                    <div class="precio">
+                        $<?= number_format((float) $producto['precio'], 2, ',', '.') ?>
+                    </div>
+
+                    <p class="stock">
+                        Stock: <?= esc($producto['stock']) ?>
+                    </p>
+                </article>
+            <?php endforeach; ?>
+        </section>
+    <?php else: ?>
+        <div class="sin-productos">
+            No hay productos para mostrar.
+        </div>
+    <?php endif; ?>
+</main>
 
 </body>
 </html>
