@@ -43,6 +43,6 @@ class Productos extends BaseController
             'orden' => $orden,
         ];
 
-        return view('productos', $datos);
+        return view('producto/productos', $datos);
     }
 }
