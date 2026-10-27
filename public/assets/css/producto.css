@@ -1,4 +1,5 @@
 
+/* ESTILO GENERAL */
 * {
     box-sizing: border-box;
 }
@@ -12,19 +13,13 @@ body {
     min-height: 100vh;
     font-family: "Courier New", monospace;
     color: white;
-    background: linear-gradient(
-        135deg,
-        #39258d 0%,
-        #29294f 55%,
-        #172b38 100%
-    );
+    background: linear-gradient(135deg, #39258d, #25284d, #172b38);
 }
 
-/* Barra superior */
-
+/* ENCABEZADO */
 .cabecera {
     width: 100%;
-    min-height: 85px;
+    min-height: 80px;
     padding: 12px 5%;
     display: flex;
     align-items: center;
@@ -33,39 +28,34 @@ body {
 }
 
 .logo {
-    width: 68px;
-    height: 68px;
+    width: 65px;
+    height: 65px;
     display: grid;
     place-items: center;
-    background: white;
     border: 5px solid #f34463;
     border-radius: 50%;
+    background: white;
+    font-size: 32px;
     text-decoration: none;
-    font-size: 35px;
 }
 
 .menu-derecha {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    flex-wrap: wrap;
     gap: 10px;
+    flex-wrap: wrap;
 }
 
 .menu-derecha form {
-    display: inline-flex;
     margin: 0;
 }
 
-/* Botones superiores */
-
+/* BOTONES */
 .btn-carrito,
 .btn-secundario,
 .btn-nuevo {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    gap: 6px;
+    display: inline-block;
     padding: 12px 16px;
     border: none;
     border-radius: 9px;
@@ -73,9 +63,8 @@ body {
     text-decoration: none;
     font-family: inherit;
     font-size: 13px;
-    font-weight: bold;
     cursor: pointer;
-    transition: background .2s, transform .2s;
+    transition: .2s;
 }
 
 .btn-carrito,
@@ -86,20 +75,32 @@ body {
 .btn-carrito:hover,
 .btn-nuevo:hover {
     background: #d92f50;
-    transform: translateY(-1px);
 }
 
 .btn-secundario {
     background: #343653;
-    border: 1px solid #ffffff70;
+    border: 1px solid #ffffff80;
 }
 
 .btn-secundario:hover {
     background: #4b4d72;
 }
 
-/* Contenido principal */
+.btn-cerrar {
+    padding: 11px 14px;
+    border: none;
+    border-radius: 8px;
+    background: #f34463;
+    color: white;
+    font-family: inherit;
+    cursor: pointer;
+}
 
+.btn-cerrar:hover {
+    background: #d92f50;
+}
+
+/* CONTENIDO */
 .contenedor {
     width: min(100% - 24px, 620px);
     margin: 25px auto 45px;
@@ -108,7 +109,7 @@ body {
 h1 {
     margin: 15px 0 8px;
     text-align: center;
-    font-size: 28px;
+    font-size: 29px;
 }
 
 .subtitulo {
@@ -118,12 +119,11 @@ h1 {
     line-height: 1.5;
 }
 
-/* Buscador */
-
+/* BUSCADOR */
 .buscador {
+    display: flex;
     width: 100%;
     height: 49px;
-    display: flex;
     overflow: hidden;
     background: white;
     border-radius: 13px;
@@ -138,20 +138,18 @@ h1 {
     color: #222;
     font-family: inherit;
     font-size: 15px;
-    font-weight: bold;
 }
 
 .buscador button {
-    width: 56px;
+    width: 58px;
     border: none;
     background: #f34463;
     color: white;
-    font-size: 27px;
+    font-size: 25px;
     cursor: pointer;
 }
 
-/* Orden y agregar producto */
-
+/* ORDENAR Y AGREGAR */
 .herramientas {
     display: flex;
     align-items: center;
@@ -164,12 +162,10 @@ h1 {
 .herramientas form {
     display: flex;
     align-items: center;
-    flex-wrap: wrap;
     gap: 8px;
 }
 
 .herramientas label {
-    color: white;
     font-weight: bold;
 }
 
@@ -182,11 +178,9 @@ h1 {
     color: white;
     font-family: inherit;
     font-size: 12px;
-    font-weight: bold;
 }
 
-/* Tarjetas de productos */
-
+/* LISTA DE PRODUCTOS */
 .lista-productos {
     display: grid;
     gap: 15px;
@@ -198,7 +192,7 @@ h1 {
     gap: 13px;
     padding: 14px;
     border-radius: 16px;
-    background: #fff;
+    background: white;
     color: #292943;
     box-shadow: 0 5px 18px #00000018;
 }
@@ -211,7 +205,7 @@ h1 {
     place-items: center;
     border-radius: 10px;
     background: #f3f3f6;
-    font-size: 36px;
+    font-size: 35px;
 }
 
 .datos-producto {
@@ -244,8 +238,7 @@ h1 {
     font-size: 11px;
 }
 
-/* Botones de cada producto */
-
+/* ACCIONES DEL PRODUCTO */
 .acciones {
     display: flex;
     flex-direction: column;
@@ -294,21 +287,12 @@ h1 {
     color: #0756a0;
 }
 
-.btn-editar:hover {
-    background: #c9e2ff;
-}
-
 .btn-eliminar {
     background: #ffe5e9;
     color: #b42338;
 }
 
-.btn-eliminar:hover {
-    background: #ffcbd3;
-}
-
-/* Carrito y mensajes */
-
+/* CARRITO */
 .carrito,
 .formulario-producto {
     margin-top: 28px;
@@ -338,8 +322,7 @@ h1 {
     background: #ffffff20;
 }
 
-/* Formulario de productos */
-
+/* FORMULARIO */
 .formulario-producto label {
     display: block;
     margin: 13px 0 6px;
@@ -354,29 +337,20 @@ h1 {
     font: inherit;
 }
 
-/* Celulares */
-
+/* CELULARES */
 @media (max-width: 480px) {
     .cabecera {
         padding: 12px;
-        align-items: flex-start;
     }
 
     .logo {
-        width: 52px;
-        height: 52px;
-        font-size: 27px;
+        width: 50px;
+        height: 50px;
+        font-size: 25px;
     }
 
     .menu-derecha {
         gap: 6px;
-    }
-
-    .btn-carrito,
-    .btn-secundario,
-    .btn-nuevo {
-        padding: 9px;
-        font-size: 11px;
     }
 
     .producto {
@@ -385,10 +359,10 @@ h1 {
     }
 
     .foto-producto {
-        width: 48px;
-        min-width: 48px;
-        height: 70px;
-        font-size: 27px;
+        width: 45px;
+        min-width: 45px;
+        height: 65px;
+        font-size: 25px;
     }
 
     .datos-producto h2 {
