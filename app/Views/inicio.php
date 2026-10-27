@@ -13,36 +13,7 @@
     <header class="navbar">
         <a href="<?= site_url('/') ?>" class="marca">Mi tienda</a>
 
-        <nav>
-            <?php if (session()->get('usuario_id')): ?>
-
-                <span class="saludo">
-                    Hola, <?= esc(session()->get('usuario_nombre')) ?>
-                </span>
-
-                <a href="<?= site_url('productos') ?>"
-                   class="btn btn-azul">
-                    Ver productos
-                </a>
-
-                <form action="<?= site_url('logout') ?>"
-                      method="post" class="form-logout">
-                    <?= csrf_field() ?>
-                    <button type="submit" class="btn btn-borde">
-                        Cerrar sesión
-                    </button>
-                </form>
-
-            <?php else: ?>
-
-                <a href="<?= site_url('login') ?>"
-                   class="btn btn-borde">Ingresar</a>
-
-                <a href="<?= site_url('registro') ?>"
-                   class="btn btn-azul">Registrarse</a>
-
-            <?php endif; ?>
-        </nav>
+       
         <nav>
     <?php if (session()->get('logueado')): ?>
 
