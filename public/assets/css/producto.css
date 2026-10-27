@@ -1,5 +1,4 @@
 
-/* ESTILO GENERAL */
 * {
     box-sizing: border-box;
 }
@@ -8,7 +7,9 @@ html, body {
     margin: 0;
     min-height: 100%;
 }
-
+body {
+    background: red !important;
+}
 body {
     min-height: 100vh;
     font-family: "Courier New", monospace;
@@ -16,7 +17,7 @@ body {
     background: linear-gradient(135deg, #39258d, #25284d, #172b38);
 }
 
-/* ENCABEZADO */
+
 .cabecera {
     width: 100%;
     min-height: 80px;
