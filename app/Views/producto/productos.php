@@ -104,6 +104,8 @@
         </div>
     <?php endif; ?>
 </main>
-
+<footer class="footer">
+        <p>2026 - Todos los derechos reservados.</p>
+    </footer>
 </body>
 </html>
