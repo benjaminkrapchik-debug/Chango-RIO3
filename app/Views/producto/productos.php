@@ -7,7 +7,7 @@
     <title>Comparador de precios</title>
 
     <link rel="stylesheet"
-          href="<?= base_url('public/assets/css/productos.css') ?>">
+          href="<?= base_url('public/assets/css/producto.css') ?>">
 </head>
 <body>
 <header class="navbar">
