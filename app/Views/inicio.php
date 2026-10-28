@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Mi tienda</title>
+    <title>CHANGO RIO 3</title>
 
     <link rel="stylesheet"
           href="<?= base_url('assets/css/inicio.css') ?>">
@@ -11,7 +11,7 @@
 <body>
 
     <header class="navbar">
-        <a href="<?= site_url('/') ?>" class="marca">Mi tienda</a>
+        <a href="<?= site_url('/') ?>" class="marca">CHANGO RIO 3</a>
 
       
 <nav class="menu-derecha">
