@@ -7,48 +7,12 @@
     <title>Comparador de precios</title>
 
     <link rel="stylesheet"
-          href="<?= base_url('public/assets/css/producto.css') ?>">
+          href="<?= base_url('assets/css/producto.css') ?>">
 </head>
 <body>
-<header class="navbar">
-        <a href="<?= site_url('/') ?>" class="marca">CHANGO RIO 3</a>
 
-      
-<nav class="menu-derecha">
-    <?php if (session()->get('logueado')): ?>
 
-        <span class="saludo">
-            Hola, <?= esc(session()->get('usuario_nombre')) ?>
-        </span>
-
-        <a href="<?= site_url('productos') ?>"
-           class="btn-secundario">
-            Productos
-        </a>
-
-        <form action="<?= site_url('logout') ?>" method="post">
-            <?= csrf_field() ?>
-            <button type="submit" class="btn-cerrar">
-                Cerrar sesión
-            </button>
-        </form>
-
-    <?php else: ?>
-
-        <a href="<?= site_url('login') ?>"
-           class="btn-secundario">
-            Ingresar
-        </a>
-
-        <a href="<?= site_url('registro') ?>"
-           class="btn-nuevo">
-            Registrarse
-        </a>
-
-    <?php endif; ?>
-</nav>
-
-    </header>
+   
 
 <nav class="barra">
     <div>
