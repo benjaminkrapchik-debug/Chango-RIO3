@@ -184,6 +184,24 @@ body {
     font-weight: bold;
 }
 
+.footer {
+    min-height: 54px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #212529;
+    color: white;
+    padding: 12px;
+    text-align: center;
+}
+
+.footer p {
+    margin: 0;
+    color: white;
+    font-size: 14px;
+}
+
+
 @media (max-width: 600px) {
     .barra {
         padding: 15px;
