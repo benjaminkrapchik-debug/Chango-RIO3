@@ -31,3 +31,9 @@ $routes->post('guardarRegistro', 'Auth::guardarRegistro');
 
 $routes->get('login', 'Auth::login');
 $routes->post('iniciarSesion', 'Auth::iniciarSesion');
+
+
+$routes->get('productos', 'Productos::index');
+$routes->post('productos/guardar', 'Productos::guardar');
+$routes->post('productos/eliminar/(:num)', 'Productos::eliminar/$1');
+

@@ -9,7 +9,6 @@ class ProductosModel extends Model
     protected $table = 'productos';
     protected $primaryKey = 'id';
     protected $returnType = 'array';
-    protected $useAutoIncrement = true;
 
     protected $allowedFields = [
         'nombre',
@@ -17,4 +16,6 @@ class ProductosModel extends Model
         'precio',
         'stock'
     ];
+
+    protected $useTimestamps = false;
 }
