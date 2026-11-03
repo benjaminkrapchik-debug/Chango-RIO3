@@ -54,12 +54,12 @@
 
         <br>
 
-        <button type="submit">Ingresar</button>
+        <button type="submit" class="btn btn-azul btn-grande">Ingresar</button>
     </form>
 
     <p>
         ¿No tenés una cuenta?
-        <a href="<?= site_url('register') ?>">Registrate acá</a>
+        <a href="<?= site_url('register') ?>" class="btn btn-azul btn-grande">Registrate acá</a>
     </p>
 
 </body>

@@ -6,29 +6,27 @@ use App\Models\ProductosModel;
 
 class Productos extends BaseController
 {
-    public function index()
-    {
-        $modelo = new ProductosModel();
+  
+public function index()
+{
+    $modelo = new \App\Models\ProductosModel();
 
-        $buscar = trim((string) $this->request->getGet('buscar'));
+    $buscar = trim((string) $this->request->getGet('buscar'));
 
-        $consulta = $modelo;
+    $consulta = $modelo;
 
-        if ($buscar !== '') {
-            $consulta = $consulta
-                ->groupStart()
-                ->like('nombre', $buscar)
-                ->orLike('descripcion', $buscar)
-                ->groupEnd();
-        }
-
-        $datos = [
-            'productos' => $consulta->orderBy('id', 'DESC')->findAll(),
-            'buscar' => $buscar
-        ];
-
-        return view('productos/index', $datos);
+    if ($buscar !== '') {
+        $consulta = $consulta->like('nombre', $buscar);
     }
+
+    $productos = $consulta->orderBy('id', 'DESC')->findAll();
+
+    return view('productos/index', [
+        'productos' => $productos,
+        'buscar' => $buscar
+    ]);
+}
+
 
     public function guardar()
     {

@@ -22,26 +22,27 @@
         </span>
 
         <a href="<?= site_url('productos') ?>"
-           class="btn-secundario">
+        class="btn btn-azul btn-grande">
+           
             Productos
         </a>
 
         <form action="<?= site_url('logout') ?>" method="post">
             <?= csrf_field() ?>
-            <button type="submit" class="btn-cerrar">
-                Cerrar sesión
-            </button>
+            <button type="submit"  class="btn btn-eliminar btn-grande">
+            Cerrar sesión
+        </button>
         </form>
 
     <?php else: ?>
 
         <a href="<?= site_url('login') ?>"
-           class="btn-secundario">
+        class="btn btn-azul btn-grande">
             Ingresar
         </a>
 
         <a href="<?= site_url('registro') ?>"
-           class="btn-nuevo">
+        class="btn btn-azul btn-grande">
             Registrarse
         </a>
 

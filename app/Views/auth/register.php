@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -6,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Crear cuenta - Mi tienda</title>
     <link rel="stylesheet"
-          href="<?= base_url('assets/css/productos.css') ?>">
+          href="<?= base_url('assets/css/register.css') ?>">
 </head>
 <body>
 

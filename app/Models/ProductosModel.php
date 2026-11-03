@@ -12,10 +12,7 @@ class ProductosModel extends Model
 
     protected $allowedFields = [
         'nombre',
-        'descripcion',
         'precio',
         'stock'
     ];
-
-    protected $useTimestamps = false;
 }
