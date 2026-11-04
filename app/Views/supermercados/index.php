@@ -43,17 +43,16 @@
 
     <section class="grilla-super">
 
-        <!-- CARREFOUR -->
+        
         <article class="tarjeta-super">
             <div class="logo-super">
-                <img
-                    src="https://carrefourar.vtexassets.com/assets/vtex.file-manager-graphql/images/71685ddd-92f0-4e22-ad08-31542f6980a8___20a95c686cf5560b5c24d05f0c44fb96.webp"
-                    alt="Logo Carrefour">
+            <img src="<?= base_url('assets/img/vea.png') ?>" alt="Logo Vea">
+
             </div>
 
             <div class="contenido-super">
                 <span class="tipo-super">CADENA DE SUPERMERCADOS</span>
-                <h3>Carrefour</h3>
+                <h3>Supermercado Vea</h3>
                 <p>
                     Una cadena de supermercados con distintas
                     opciones de productos para el hogar, alimentos,
@@ -75,14 +74,12 @@
         <!-- CHANGO MAS -->
         <article class="tarjeta-super">
             <div class="logo-super">
-                <img
-                    src="https://assets.mobile.playdigital.com.ar/promotions_dynamics/5a2e18ea-89c0-4761-9f2f-2c74914c44e1/primary_image.jpg?v=1774463870963"
-                    alt="Logo Chango Más">
+            <img src="<?= base_url('assets/img/luconi.png') ?>" alt="Logo Luconi">
             </div>
 
             <div class="contenido-super">
                 <span class="tipo-super">CADENA DE SUPERMERCADOS</span>
-                <h3>Chango Más</h3>
+                <h3>Luconi</h3>
                 <p>
                     Una propuesta comercial con productos de consumo
                     diario, artículos para el hogar y diferentes
@@ -104,12 +101,12 @@
         <!-- COMERCIO LOCAL -->
         <article class="tarjeta-super">
             <div class="logo-super logo-local">
-                🏬
+            <img src="<?= base_url('assets/img/caracol.png') ?>" alt="Logo Caracol">
             </div>
 
             <div class="contenido-super">
-                <span class="tipo-super">COMERCIO DE LA CIUDAD</span>
-                <h3>Supermercado local</h3>
+                <span class="tipo-super">CADENA DE SUPERMERCADOS</span>
+                <h3>Caracol</h3>
                 <p>
                     Espacio destinado a los supermercados y comercios
                     de cercanía que quieran formar parte de nuestra
