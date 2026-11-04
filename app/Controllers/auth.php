@@ -88,8 +88,7 @@ class Auth extends Controller
             'usuario_email' => $usuario['email'],
             'logueado' => true
         ]);
-
-       
+        
         return redirect()->to(site_url('/'));
     }
 

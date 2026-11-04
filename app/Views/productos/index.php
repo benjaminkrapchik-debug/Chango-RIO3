@@ -86,30 +86,17 @@
         <form action="<?= base_url('productos/guardar') ?>" method="post">
 
             <?= csrf_field() ?>
+            <form action="<?= base_url('productos/guardar') ?>" method="post">
+    <?= csrf_field() ?>
 
-            <input
-                type="text"
-                name="nombre"
-                placeholder="Nombre del producto"
-                required
-            >
+    <input type="text" name="nombre" placeholder="Nombre" required>
 
-            <input
-                type="number"
-                name="precio"
-                placeholder="Precio ($)"
-                min="0.01"
-                step="0.01"
-                required
-            >
+    <input type="number" name="precio" placeholder="Precio" required>
 
-            <input
-                type="number"
-                name="stock"
-                placeholder="Cantidad en stock"
-                min="0"
-                required
-            >
+    <input type="number" name="stock" placeholder="Stock" required>
+
+   
+           
 
             <button type="submit" class="btn-guardar">
                 Guardar producto
@@ -118,6 +105,72 @@
         </form>
 
     </section>
+    <section class="seccion-carrito">
+
+    <h2>🛒 Mi carrito</h2>
+
+    <?php if (!empty($carrito)): ?>
+
+        <div class="lista-carrito">
+
+            <?php foreach ($carrito as $item): ?>
+
+                <div class="producto-carrito">
+
+                    <div>
+                        <h3><?= esc($item['nombre']) ?></h3>
+
+                        <p>
+                            Precio: $<?= number_format($item['precio'], 2, ',', '.') ?>
+                        </p>
+
+                        <p>
+                            Cantidad: <?= $item['cantidad'] ?>
+                        </p>
+
+                        <strong>
+                            Subtotal:
+                            $<?= number_format($item['precio'] * $item['cantidad'], 2, ',', '.') ?>
+                        </strong>
+                    </div>
+
+                    <form action="<?= base_url('carrito/eliminar/' . $item['id']) ?>" method="post">
+                        <?= csrf_field() ?>
+
+                        <button type="submit" class="btn-eliminar-carrito">
+                            Eliminar
+                        </button>
+                    </form>
+
+                </div>
+
+            <?php endforeach; ?>
+
+        </div>
+
+        <div class="total-carrito">
+            <h2>
+                TOTAL: $<?= number_format($totalCarrito, 2, ',', '.') ?>
+            </h2>
+
+            <form action="<?= base_url('carrito/vaciar') ?>" method="post">
+                <?= csrf_field() ?>
+
+                <button type="submit" class="btn-vaciar">
+                    Vaciar carrito
+                </button>
+            </form>
+        </div>
+
+    <?php else: ?>
+
+        <p class="carrito-vacio">
+            Todavía no agregaste productos al carrito.
+        </p>
+
+    <?php endif; ?>
+
+</section>
 
     
 
@@ -167,6 +220,16 @@
                     </div>
 
                 </article>
+                <form action="<?= base_url('carrito/agregar/' . $producto['id']) ?>" method="post">
+    <?= csrf_field() ?>
+
+    <label>Cantidad:</label>
+    <input type="number" name="cantidad" value="1" min="1" required>
+
+    <button type="submit" class="btn-carrito">
+        Agregar al carrito
+    </button>
+</form>
 
             <?php endforeach; ?>
 

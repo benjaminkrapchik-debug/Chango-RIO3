@@ -60,6 +60,22 @@
                         Stock: <?= esc($producto['stock']) ?>
                     </p>
                 </article>
+                <form action="<?= base_url('carrito/agregar/' . $producto['id']) ?>" method="post">
+    <?= csrf_field() ?>
+
+    <input
+        type="number"
+        name="cantidad"
+        value="1"
+        min="1"
+        max="<?= esc($producto['stock']) ?>"
+        required
+    >
+
+    <button type="submit" class="boton boton-azul">
+        Agregar al carrito
+    </button>
+</form>
             <?php endforeach; ?>
         </section>
     <?php else: ?>

@@ -168,3 +168,259 @@ body {
         font-size: 26px;
     }
 }
+/* =================================
+   PRESENTACION CHANGO RIO 3
+================================= */
+
+.presentacion {
+    max-width: 1150px;
+    margin: 40px auto;
+    padding: 25px;
+}
+
+/* PORTADA */
+
+.portada-presentacion {
+    background: linear-gradient(135deg, #0033a0, #0066cc);
+    color: white;
+    border-radius: 22px;
+    padding: 45px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 270px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 51, 160, 0.2);
+}
+
+.texto-portada {
+    max-width: 650px;
+    position: relative;
+    z-index: 2;
+}
+
+.etiqueta {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    padding: 9px 15px;
+    border-radius: 20px;
+    font-size: 11px;
+    letter-spacing: 1px;
+    margin-bottom: 18px;
+}
+
+.texto-portada h1 {
+    font-size: 36px;
+    margin: 0 0 15px;
+}
+
+.texto-portada h1 span {
+    color: #ffd700;
+}
+
+.texto-portada p {
+    font-size: 16px;
+    line-height: 1.7;
+    color: #e7efff;
+}
+
+.frase-portada {
+    display: inline-block;
+    margin-top: 15px;
+    background: #ffd700;
+    color: #0033a0;
+    padding: 11px 18px;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+/* ILUSTRACION */
+
+.imagen-portada {
+    position: relative;
+    width: 230px;
+    height: 210px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.circulo-imagen {
+    width: 170px;
+    height: 170px;
+    border-radius: 50%;
+    background: #ffd700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 85px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.decoracion {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    padding: 10px;
+    font-size: 23px;
+}
+
+.decoracion-uno {
+    top: 5px;
+    right: 10px;
+}
+
+.decoracion-dos {
+    bottom: 5px;
+    left: 0;
+}
+
+.decoracion-tres {
+    bottom: 20px;
+    right: 0;
+}
+
+/* CONTENIDO */
+
+.contenido-presentacion {
+    background: white;
+    padding: 35px;
+    border-radius: 18px;
+    margin-top: 25px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+}
+
+.titulo-seccion span {
+    color: #0066cc;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.titulo-seccion h2 {
+    color: #0033a0;
+    font-size: 25px;
+    margin: 8px 0 20px;
+}
+
+.texto-presentacion {
+    color: #555;
+    font-size: 15px;
+    line-height: 1.9;
+    margin-bottom: 15px;
+}
+
+/* OBJETIVOS */
+
+.objetivos-presentacion {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 25px;
+}
+
+.tarjeta-objetivo {
+    background: white;
+    border-radius: 16px;
+    padding: 25px 20px;
+    text-align: center;
+    box-shadow: 0 5px 18px rgba(0,0,0,0.06);
+    border-bottom: 4px solid #0066cc;
+    transition: 0.3s;
+}
+
+.tarjeta-objetivo:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 25px rgba(0,51,160,0.12);
+}
+
+.icono-objetivo {
+    font-size: 38px;
+    margin-bottom: 12px;
+}
+
+.tarjeta-objetivo h3 {
+    color: #0033a0;
+    margin-bottom: 10px;
+}
+
+.tarjeta-objetivo p {
+    color: #666;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+/* UBICACION */
+
+.ubicacion-presentacion {
+    background: #edf3ff;
+    border-radius: 17px;
+    padding: 25px 30px;
+    margin-top: 25px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border-left: 6px solid #ffd700;
+}
+
+.icono-ubicacion {
+    font-size: 43px;
+}
+
+.ubicacion-presentacion span {
+    color: #0066cc;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.ubicacion-presentacion h2 {
+    color: #0033a0;
+    margin: 7px 0;
+}
+
+.ubicacion-presentacion p {
+    color: #555;
+    line-height: 1.6;
+    font-size: 14px;
+    margin: 0;
+}
+
+.bandera-ubicacion {
+    font-size: 42px;
+    margin-left: auto;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 750px) {
+
+    .portada-presentacion {
+        flex-direction: column;
+        text-align: center;
+        padding: 30px 20px;
+    }
+
+    .texto-portada h1 {
+        font-size: 27px;
+    }
+
+    .imagen-portada {
+        margin-top: 20px;
+    }
+
+    .objetivos-presentacion {
+        grid-template-columns: 1fr;
+    }
+
+    .ubicacion-presentacion {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .bandera-ubicacion {
+        margin: 0;
+    }
+}

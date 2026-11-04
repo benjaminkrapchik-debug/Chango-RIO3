@@ -1,0 +1,269 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f3f5f9;
+    color: #333;
+}
+
+/* BARRA SUPERIOR */
+
+.barra-super {
+    background: #212529;
+    color: white;
+    padding: 15px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.marca {
+    color: white;
+    font-size: 21px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.barra-super nav {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.barra-super nav a,
+.barra-super button {
+    background: #0866ed;
+    color: white;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.barra-super nav a:hover {
+    background: #004dbb;
+}
+
+.barra-super button {
+    background: #e51e36;
+}
+
+/* CONTENIDO */
+
+.pagina-super {
+    max-width: 1150px;
+    margin: 35px auto;
+    padding: 20px;
+}
+
+/* PORTADA */
+
+.portada-super {
+    background: linear-gradient(120deg, #0033a0, #0877e8);
+    color: white;
+    border-radius: 18px;
+    padding: 45px 35px;
+    box-shadow: 0 8px 20px rgba(0, 51, 160, 0.18);
+}
+
+.portada-super span {
+    color: #ffdc45;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+}
+
+.portada-super h1 {
+    font-size: 36px;
+    margin: 15px 0;
+}
+
+.portada-super p {
+    max-width: 650px;
+    line-height: 1.7;
+    color: #e8efff;
+}
+
+/* TITULO */
+
+.titulo-comercios {
+    margin: 38px 0 22px;
+}
+
+.titulo-comercios h2 {
+    color: #0033a0;
+    font-size: 25px;
+    margin-bottom: 8px;
+}
+
+.titulo-comercios p {
+    color: #666;
+    line-height: 1.5;
+}
+
+/* TARJETAS */
+
+.grilla-super {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+}
+
+.tarjeta-super {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 18px rgba(0,0,0,0.07);
+    transition: 0.3s;
+    border-bottom: 4px solid #0866ed;
+}
+
+.tarjeta-super:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 12px 25px rgba(0,51,160,0.15);
+}
+
+/* LOGOS */
+
+.logo-super {
+    height: 165px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 22px;
+    border-bottom: 1px solid #eee;
+}
+
+.logo-super img {
+    max-width: 85%;
+    max-height: 120px;
+    object-fit: contain;
+}
+
+.logo-local {
+    font-size: 75px;
+    background: #edf3ff;
+}
+
+/* INFORMACION */
+
+.contenido-super {
+    padding: 22px;
+}
+
+.tipo-super {
+    color: #0870db;
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.contenido-super h3 {
+    color: #0033a0;
+    font-size: 22px;
+    margin: 10px 0;
+}
+
+.contenido-super > p {
+    color: #666;
+    font-size: 13px;
+    line-height: 1.7;
+    min-height: 88px;
+    margin-bottom: 18px;
+}
+
+.dato-super {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    background: #f3f6fc;
+    padding: 12px;
+    border-radius: 8px;
+    margin-top: 10px;
+    font-size: 12px;
+}
+
+.dato-super strong {
+    color: #0033a0;
+}
+
+.dato-super span {
+    color: #555;
+}
+
+/* MENSAJE FINAL */
+
+.mensaje-final-super {
+    background: #e9f0ff;
+    border-radius: 15px;
+    padding: 30px;
+    text-align: center;
+    margin-top: 35px;
+    border-left: 5px solid #ffd700;
+}
+
+.mensaje-final-super h2 {
+    color: #0033a0;
+    margin-bottom: 12px;
+}
+
+.mensaje-final-super p {
+    color: #555;
+    line-height: 1.7;
+    margin-bottom: 15px;
+}
+
+.mensaje-final-super span {
+    color: #0033a0;
+    font-weight: bold;
+}
+
+/* PIE */
+
+.footer-super {
+    background: #212529;
+    color: white;
+    padding: 22px;
+    text-align: center;
+    margin-top: 40px;
+}
+
+/* CELULARES */
+
+@media (max-width: 850px) {
+    .grilla-super {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .grilla-super {
+        grid-template-columns: 1fr;
+    }
+
+    .barra-super {
+        flex-direction: column;
+    }
+
+    .barra-super nav {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .portada-super {
+        padding: 30px 22px;
+    }
+
+    .portada-super h1 {
+        font-size: 28px;
+    }
+}
