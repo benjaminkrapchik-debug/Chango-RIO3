@@ -35,3 +35,7 @@ $routes->get('supermercados', 'supermercados::index');
 $routes->get('historial', 'Historial::index');
 
 $routes->post('carrito/finalizar', 'Productos::finalizarCompra');
+
+$routes->get('productos/vea', 'Productos::vea');
+$routes->get('productos/luconi', 'Productos::luconi');
+$routes->get('productos/caracol', 'Productos::caracol');

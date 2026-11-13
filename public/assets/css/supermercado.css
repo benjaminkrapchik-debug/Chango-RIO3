@@ -92,7 +92,7 @@ body {
     color: #e8efff;
 }
 
-/* TITULO */
+/* TITULO COMERCIOS */
 
 .titulo-comercios {
     margin: 38px 0 22px;
@@ -109,33 +109,41 @@ body {
     line-height: 1.5;
 }
 
-/* TARJETAS */
+/* GRILLA */
 
 .grilla-super {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 22px;
+    align-items: stretch;
 }
 
-.tarjeta-super {
+/* TARJETAS */
+
+.tarjeta-supermercado {
+    display: flex;
+    flex-direction: column;
     background: white;
     border-radius: 15px;
     overflow: hidden;
     box-shadow: 0 5px 18px rgba(0,0,0,0.07);
     transition: 0.3s;
     border-bottom: 4px solid #0866ed;
+    text-decoration: none;
+    color: #333;
+    min-width: 0;
 }
 
-.tarjeta-super:hover {
+.tarjeta-supermercado:hover {
     transform: translateY(-7px);
     box-shadow: 0 12px 25px rgba(0,51,160,0.15);
 }
 
 /* LOGOS */
 
-.logo-super {
+.logo-supermercado {
     height: 165px;
-    background: #fff;
+    background: white;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -143,37 +151,37 @@ body {
     border-bottom: 1px solid #eee;
 }
 
-.logo-super img {
+.logo-supermercado img {
     max-width: 85%;
     max-height: 120px;
+    width: auto;
+    height: auto;
     object-fit: contain;
-}
-
-.logo-local {
-    font-size: 75px;
-    background: #edf3ff;
 }
 
 /* INFORMACION */
 
-.contenido-super {
+.contenido-tarjeta {
     padding: 22px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
 }
 
-.tipo-super {
+.contenido-tarjeta small {
     color: #0870db;
     font-size: 10px;
     font-weight: bold;
     letter-spacing: 1px;
 }
 
-.contenido-super h3 {
+.contenido-tarjeta h2 {
     color: #0033a0;
     font-size: 22px;
     margin: 10px 0;
 }
 
-.contenido-super > p {
+.contenido-tarjeta p {
     color: #666;
     font-size: 13px;
     line-height: 1.7;
@@ -181,7 +189,7 @@ body {
     margin-bottom: 18px;
 }
 
-.dato-super {
+.informacion {
     display: flex;
     flex-direction: column;
     gap: 6px;
@@ -192,12 +200,30 @@ body {
     font-size: 12px;
 }
 
-.dato-super strong {
+.informacion strong {
     color: #0033a0;
 }
 
-.dato-super span {
+.informacion span {
     color: #555;
+}
+
+/* ENTRAR A PRODUCTOS */
+
+.ver-productos {
+    background: #0866ed;
+    color: white;
+    text-align: center;
+    padding: 12px;
+    border-radius: 8px;
+    margin-top: 18px;
+    font-size: 14px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.tarjeta-supermercado:hover .ver-productos {
+    background: #0033a0;
 }
 
 /* MENSAJE FINAL */
