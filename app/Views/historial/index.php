@@ -1,88 +1,99 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?= esc($titulo) ?></title>
 
-    <link rel="stylesheet" href="<?= base_url('assets/css/inicio.css') ?>">
-    <link rel="stylesheet" href="<?= base_url('assets/css/historial.css') ?>">
+    <title>Mi historial - CHANGO RIO 3</title>
+
+    <link rel="stylesheet"
+          href="<?= base_url('css/historial.css?v=6') ?>">
 </head>
 
 <body>
 
-<header class="navbar">
-    <a href="<?= site_url('/') ?>" class="marca">
-        CHANGO RIO 3
-    </a>
+<header class="barra">
+    <nav>
+        <h2>CHANGO RIO 3</h2>
 
-    <nav class="menu-derecha">
-        <span class="saludo">
-            Hola, <?= esc(session()->get('usuario_nombre')) ?>
-        </span>
+        <div class="menu">
+            <span>Hola, <?= esc(session()->get('usuario_nombre')) ?></span>
 
-        <a href="<?= site_url('productos') ?>" class="btn btn-azul">Productos</a>
-        <a href="<?= site_url('supermercados') ?>" class="btn btn-azul">Supermercados</a>
-        <a href="<?= site_url('/') ?>" class="btn btn-azul">Inicio</a>
+            <a href="<?= site_url('productos') ?>">Productos</a>
+            <a href="<?= site_url('supermercados') ?>">Supermercados</a>
+            <a href="<?= site_url('/') ?>">Inicio</a>
 
-        <form action="<?= site_url('logout') ?>" method="post">
-            <?= csrf_field() ?>
-            <button type="submit" class="btn btn-eliminar">
-                Cerrar sesión
-            </button>
-        </form>
+            <form action="<?= site_url('logout') ?>" method="post">
+                <?= csrf_field() ?>
+                <button type="submit" class="cerrar">Cerrar sesión</button>
+            </form>
+        </div>
     </nav>
 </header>
 
 <main class="contenedor-historial">
 
-    <div class="encabezado-historial">
-        <h1>📋 Mi historial</h1>
-        <p>Consultá todas tus actividades dentro de CHANGO RIO 3.</p>
-    </div>
+    <h1>📋 Mi historial</h1>
 
-    <?php if (!empty($historial)): ?>
+    <p class="descripcion">
+        Consultá todas tus compras realizadas dentro de CHANGO RIO 3.
+    </p>
 
-        <div class="tabla-historial">
-            <div class="table-responsive">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Actividad</th>
-                            <th>Detalles</th>
-                            <th>Fecha y hora</th>
-                        </tr>
-                    </thead>
+    <?php if (!empty($compras)): ?>
 
-                    <tbody>
-                        <?php foreach ($historial as $registro): ?>
-                            <tr>
-                                <td>
-                                    <strong><?= esc($registro['actividad']) ?></strong>
-                                </td>
+        <?php foreach ($compras as $compra): ?>
 
-                                <td>
-                                    <?= esc($registro['detalles'] ?? 'Sin detalles') ?>
-                                </td>
+            <div class="compra">
 
-                                <td>
-                                    <?= esc(date(
-                                        'd/m/Y H:i',
-                                        strtotime($registro['fecha_hora'])
-                                    )) ?>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
+                <h2>🛒 Compra #<?= esc($compra['id']) ?></h2>
+
+                <p class="fecha">
+                    Fecha: <?= esc($compra['fecha']) ?>
+                </p>
+
+                <h3>Productos comprados</h3>
+
+                <?php foreach ($compra['productos'] as $producto): ?>
+
+                    <div class="producto-historial">
+
+                        <strong>
+                            <?= esc($producto['nombre_producto']) ?>
+                        </strong>
+
+                        <span>
+                            Precio: $
+                            <?= number_format($producto['precio'], 2, ',', '.') ?>
+                        </span>
+
+                        <span>
+                            Cantidad: <?= esc($producto['cantidad']) ?>
+                        </span>
+
+                        <span>
+                            Subtotal: $
+                            <?= number_format($producto['subtotal'], 2, ',', '.') ?>
+                        </span>
+
+                    </div>
+
+                <?php endforeach; ?>
+
+                <div class="total">
+                    TOTAL: $
+                    <?= number_format($compra['total'], 2, ',', '.') ?>
+                </div>
+
             </div>
-        </div>
+
+        <?php endforeach; ?>
 
     <?php else: ?>
 
-        <div class="historial-vacio">
-            <h2>🕒 Todavía no tenés actividades</h2>
-            <p>Cuando realices actividades en CHANGO RIO 3, aparecerán acá.</p>
+        <div class="vacio">
+            <h2>🕒 Todavía no tenés compras</h2>
+            <p>Cuando realices compras aparecerán acá.</p>
         </div>
 
     <?php endif; ?>
@@ -93,7 +104,7 @@
 
 </main>
 
-<footer class="footer">
+<footer>
     <p>2026 - Todos los derechos reservados.</p>
 </footer>
 

@@ -22,22 +22,28 @@ class Historial extends BaseController
 
     public function index()
     {
-        $usuarioId = $this->usuarioId();
-
-        if (!$usuarioId || !session()->get('logueado')) {
-            return redirect()->to(base_url('login'));
-        }
-
-        $historial = $this->historialModel
+        $db = \Config\Database::connect();
+    
+        $usuarioId = session()->get('usuario_id');
+    
+        $compras = $db->table('compras')
             ->where('usuario_id', $usuarioId)
-            ->orderBy('fecha_hora', 'DESC')
-            ->findAll();
-
-        $datos = [
-            'titulo' => 'Historial - CHANGO RIO 3',
-            'historial' => $historial
-        ];
-
-        return view('historial/index', $datos);
+            ->orderBy('fecha', 'DESC')
+            ->get()
+            ->getResultArray();
+    
+        foreach ($compras as $i => $compra) {
+    
+            $productos = $db->table('detalle_compras')
+                ->where('compra_id', $compra['id'])
+                ->get()
+                ->getResultArray();
+    
+            $compras[$i]['productos'] = $productos;
+        }
+    
+        return view('historial/index', [
+            'compras' => $compras
+        ]);
     }
 }

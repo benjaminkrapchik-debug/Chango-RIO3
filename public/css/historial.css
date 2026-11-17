@@ -1,65 +1,206 @@
-.contenedor-historial {
-    max-width: 1100px;
-    margin: 45px auto;
-    padding: 25px;
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.encabezado-historial {
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f6f8;
+    color: #222;
+}
+
+/* BARRA SUPERIOR */
+
+.barra {
+    background: #212529;
+    color: white;
+    padding: 10px 20px;
+}
+
+.barra nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.barra h2 {
+    color: white;
+    font-size: 22px;
+}
+
+.menu {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.menu span {
+    color: white;
+    margin-right: 5px;
+}
+
+.menu a {
+    background: #0866ed;
+    color: white;
+    padding: 12px 15px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.menu form {
+    margin: 0;
+}
+
+.cerrar {
+    background: #e9273e;
+    color: white;
+    padding: 12px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* CONTENIDO */
+
+.contenedor-historial {
+    max-width: 580px;
+    margin: 75px auto;
+    padding: 0 10px;
+}
+
+.contenedor-historial h1 {
+    color: #0033a0;
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+.descripcion {
+    color: #666;
+    font-size: 16px;
     margin-bottom: 30px;
 }
 
-.encabezado-historial h1 {
+/* TARJETAS DE COMPRAS */
+
+.compra {
+    background: white;
+    padding: 30px;
+    margin-bottom: 25px;
+    border-radius: 13px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+.compra h2 {
     color: #0033a0;
-    font-size: 32px;
+    font-size: 23px;
+    border-bottom: 3px solid #ffd700;
+    padding-bottom: 13px;
+    margin-bottom: 18px;
 }
 
-.encabezado-historial p {
+.fecha {
     color: #666;
+    margin-bottom: 25px;
+    font-size: 14px;
 }
 
-.tabla-historial {
-    background: white;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
-    overflow-x: auto;
+.compra h3 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: #222;
 }
 
-.tabla-historial table {
-    width: 100%;
-    border-collapse: collapse;
-}
+/* PRODUCTOS COMPRADOS */
 
-.tabla-historial th {
-    background: #0033a0;
-    color: white;
+.producto-historial {
+    background: #f4f6f9;
     padding: 15px;
-    text-align: left;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 14px;
 }
 
-.tabla-historial td {
-    padding: 15px;
-    border-bottom: 1px solid #ddd;
+.producto-historial strong {
+    color: #0033a0;
+    font-size: 16px;
 }
 
-.historial-vacio {
+/* TOTAL */
+
+.total {
+    text-align: right;
+    color: #008744;
+    font-size: 22px;
+    font-weight: bold;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #ddd;
+}
+
+/* SIN COMPRAS */
+
+.vacio {
     background: white;
-    padding: 35px;
+    padding: 50px 25px;
     text-align: center;
-    border-radius: 12px;
-    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+    border-radius: 13px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
 }
+
+.vacio h2 {
+    margin-bottom: 18px;
+}
+
+/* BOTON */
 
 .volver {
     display: inline-block;
-    margin-top: 25px;
     background: #0033a0;
     color: white;
-    padding: 12px 20px;
-    border-radius: 7px;
+    padding: 13px 20px;
     text-decoration: none;
+    border-radius: 7px;
+    margin-top: 0;
 }
 
 .volver:hover {
     background: #002477;
+}
+
+/* FOOTER */
+
+footer {
+    background: #212529;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 70px;
+}
+
+/* CELULARES */
+
+@media (max-width: 700px) {
+    .barra nav {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .menu {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .contenedor-historial {
+        margin: 40px auto;
+        padding: 15px;
+    }
+
+    .compra {
+        padding: 20px;
+    }
 }

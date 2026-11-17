@@ -160,6 +160,7 @@
                         <button type="submit" class="btn-eliminar-carrito">
                             Eliminar
                         </button>
+                       
 
                     </form>
 
@@ -181,7 +182,15 @@
                         Vaciar carrito
                     </button>
                 </form>
+                <form action="<?= site_url('carrito/finalizar') ?>" method="post">
 
+<?= csrf_field() ?>
+
+<button type="submit" class="btn-comprar">
+    Finalizar compra
+</button>
+
+</form>
             </div>
 
         <?php else: ?>
@@ -207,26 +216,48 @@
 
                 <article class="tarjeta">
 
-                    <!-- IMAGEN -->
 
-                    <div class="foto">
+<?php
+$imagenesFijas = [
+    2  => '../../public/assets/img/uploads/productos/images16.jfif',
+    3  => '02-leche.png',
+    4  => '03-arroz.png',
+    6  => '04-yerba.png',
+    7  => '05-oreo.png',
+    8  => '06-chocolinas.png',
+    9  => '07-fideos.png',
+    10 => '08-aceite.png',
+    11 => '09-harina.png',
+    12 => '10-agua.png',
+    13 => '11-jabon.png',
+    14 => '12-carne.png',
+    15 => '13-detergente.png',
+    16 => '14-lavandina.png',
+    17 => '15-papel.png',
+    18 => '16-cafe.png',
+    19 => '17-dulce.png',
+    20 => '18-fernet.png',
+    21 => '19-vino.png',
+    22 => '20-whisky.png',
+  
+];
 
-                        <?php if (!empty($producto['imagen'])): ?>
+$archivoImagen = $imagenesFijas[$producto['id']] ?? null;
+?>
 
-                            <img
-                                src="<?= base_url('uploads/productos/' . rawurlencode($producto['imagen'])) ?>"
-                                alt="<?= esc($producto['nombre']) ?>"
-                                onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+<div class="foto" style="width: 120px; height: 120px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+    <?php if ($archivoImagen): ?>
+        <img
+            src="<?= base_url('uploads/productos/' . $archivoImagen) ?>"
+            class="imagen-producto"
+            alt="<?= esc($producto['nombre']) ?>"
+            style="max-width: 100%; max-height: 100%; object-fit: contain; font-size: 12px;"
+        >
+    <?php else: ?>
+        <span>🛒</span>
+    <?php endif; ?>
+</div>
 
-                            <span style="display:none;">🛒</span>
-
-                        <?php else: ?>
-
-                            <span>🛒</span>
-
-                        <?php endif; ?>
-
-                    </div>
 
 
                     <!-- INFORMACION -->
@@ -292,6 +323,7 @@
                             <button type="submit" class="btn-carrito">
                                 Agregar al carrito
                             </button>
+                            
 
                         </form>
 

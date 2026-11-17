@@ -477,4 +477,12 @@ input[name="cantidad"] {
     background: #0055d4;
 }
 
+.imagen-producto {
+    width: 110px;
+    height: 150px;
+    object-fit: contain;
+    border-radius: 10px;
+    background: #f4f5f7;
+    padding: 8px;
+}
 }
