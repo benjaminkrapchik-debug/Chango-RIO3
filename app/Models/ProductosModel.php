@@ -9,10 +9,11 @@ class ProductosModel extends Model
     protected $table = 'productos';
     protected $primaryKey = 'id';
     protected $returnType = 'array';
-
+   
     protected $allowedFields = [
         'nombre',
         'precio',
-        'stock'
+        'stock',
+        'supermercado_id'
     ];
 }

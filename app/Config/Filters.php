@@ -72,14 +72,13 @@ class Filters extends BaseFilters
      */
     public array $globals = [
         'before' => [
-            // 'honeypot',
-            // 'csrf',
-            // 'invalidchars',
+            'csrf' => [
+                'except' => [
+                    'pagos/notificacion'
+                ]
+            ]
         ],
-        'after' => [
-            // 'honeypot',
-            // 'secureheaders',
-        ],
+        'after' => []
     ];
 
     /**
@@ -96,7 +95,7 @@ class Filters extends BaseFilters
      * @var array<string, list<string>>
      */
     public array $methods = [];
-
+  
     /**
      * List of filter aliases that should run on any
      * before or after URI patterns.

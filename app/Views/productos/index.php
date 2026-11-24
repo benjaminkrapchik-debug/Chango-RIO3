@@ -325,26 +325,67 @@ if (!empty($carrito)) {
 
                 <article class="tarjeta">
 
-                    <!-- IMAGEN -->
+                   <!-- IMAGEN DE REFERENCIA AUTOMÁTICA -->
 
-                    <div class="foto">
+<?php
+$nombre = strtolower($producto['nombre']);
 
-                        <?php if ($archivoImagen): ?>
+$icono = '🛒';
 
-                            <img
-                                src="<?= base_url('uploads/productos/' . $archivoImagen) ?>"
-                                class="imagen-producto"
-                                alt="<?= esc($producto['nombre']) ?>"
-                            >
+if (str_contains($nombre, 'leche')) {
+    $icono = '🥛';
+} elseif (str_contains($nombre, 'arroz')) {
+    $icono = '🍚';
+} elseif (str_contains($nombre, 'yerba')) {
+    $icono = '🧉';
+} elseif (str_contains($nombre, 'oreo') || str_contains($nombre, 'galletita')) {
+    $icono = '🍪';
+} elseif (str_contains($nombre, 'chocolate')) {
+    $icono = '🍫';
+} elseif (str_contains($nombre, 'fideo') || str_contains($nombre, 'pasta')) {
+    $icono = '🍝';
+} elseif (str_contains($nombre, 'aceite')) {
+    $icono = '🫒';
+} elseif (str_contains($nombre, 'harina')) {
+    $icono = '🌾';
+} elseif (str_contains($nombre, 'agua')) {
+    $icono = '💧';
+} elseif (str_contains($nombre, 'jabon')) {
+    $icono = '🧼';
+} elseif (str_contains($nombre, 'carne')) {
+    $icono = '🥩';
+} elseif (str_contains($nombre, 'detergente')) {
+    $icono = '🧴';
+} elseif (str_contains($nombre, 'lavandina')) {
+    $icono = '🧽';
+} elseif (str_contains($nombre, 'papel')) {
+    $icono = '🧻';
+} elseif (str_contains($nombre, 'cafe')) {
+    $icono = '☕';
+} elseif (str_contains($nombre, 'dulce')) {
+    $icono = '🍯';
+} elseif (str_contains($nombre, 'fernet')) {
+    $icono = '🥃';
+} elseif (str_contains($nombre, 'vino')) {
+    $icono = '🍷';
+} elseif (str_contains($nombre, 'whisky')) {
+    $icono = '🥃';
+} elseif (str_contains($nombre, 'gaseosa')) {
+    $icono = '🥤';
+} elseif (str_contains($nombre, 'cerveza')) {
+    $icono = '🍺';
+} elseif (str_contains($nombre, 'pan')) {
+    $icono = '🍞';
+} elseif (str_contains($nombre, 'huevo')) {
+    $icono = '🥚';
+}
+?>
 
-                        <?php else: ?>
-
-                            <span>🛒</span>
-
-                        <?php endif; ?>
-
-                    </div>
-
+<div class="foto">
+    <span class="icono-producto">
+        <?= $icono ?>
+    </span>
+</div>
 
                     <!-- INFORMACION -->
 
@@ -374,20 +415,27 @@ if (!empty($carrito)) {
                         <?php endif; ?>
 
 
-                        <!-- ELIMINAR PRODUCTO -->
+                        
+<div class="botones-producto">
 
-                        <form action="<?= base_url('productos/eliminar/' . $producto['id']) ?>"
-                              method="post"
-                              onsubmit="return confirm('¿Querés eliminar este producto?')">
+<a href="<?= site_url('productos/editar/' . $producto['id']) ?>"
+   class="btn-editar">
+    Editar
+</a>
 
-                            <?= csrf_field() ?>
+<form action="<?= site_url('productos/eliminar/' . $producto['id']) ?>"
+      method="post"
+      onsubmit="return confirm('¿Querés eliminar este producto?')">
 
-                            <button type="submit" class="btn-eliminar">
-                                Eliminar
-                            </button>
+    <?= csrf_field() ?>
 
-                        </form>
+    <button type="submit" class="btn-eliminar">
+        Eliminar
+    </button>
 
+</form>
+
+</div>
 
                         <!-- AGREGAR AL CARRITO -->
 

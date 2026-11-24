@@ -4,57 +4,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Editar producto</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-          rel="stylesheet">
+    <title>Editar producto - CHANGO RIO 3</title>
+
+    <link rel="stylesheet"
+          href="<?= base_url('assets/css/productos.css') ?>">
 </head>
+
 <body>
-<div class="container mt-4">
-    <h1>Editar producto</h1>
 
-    <?php if (session()->getFlashdata('errores')): ?>
-        <div class="alert alert-danger">
-            <?php foreach (session()->getFlashdata('errores') as $error): ?>
-                <p><?= esc($error) ?></p>
-            <?php endforeach; ?>
-        </div>
-    <?php endif; ?>
+<header class="navbar">
+    <a href="<?= site_url('productos') ?>" class="marca">
+        CHANGO RIO 3
+    </a>
 
-    <form action="<?= base_url('productos/actualizar/' . $producto['id']) ?>"
-          method="post">
-        <?= csrf_field() ?>
+    <nav>
+        <a href="<?= site_url('productos') ?>" class="btn btn-azul">
+            Volver a productos
+        </a>
+    </nav>
+</header>
 
-        <div class="mb-3">
-            <label class="form-label">Nombre</label>
-            <input type="text" name="nombre" class="form-control"
-                   value="<?= esc(old('nombre') ?? $producto['nombre']) ?>"
+<main class="contenido">
+
+    <section class="formulario formulario-editar">
+
+        <h1>Editar producto</h1>
+
+        <?php if (session()->getFlashdata('error')): ?>
+            <div class="error">
+                <?= esc(session()->getFlashdata('error')) ?>
+            </div>
+        <?php endif; ?>
+
+        <form action="<?= site_url('productos/actualizar/' . $producto['id']) ?>"
+              method="post">
+
+            <?= csrf_field() ?>
+
+            <label>Nombre del producto</label>
+            <input type="text"
+                   name="nombre"
+                   value="<?= esc(old('nombre', $producto['nombre'])) ?>"
                    required>
-        </div>
 
-        <div class="mb-3">
-            <label class="form-label">Descripción</label>
-            <textarea name="descripcion" class="form-control"><?= esc(old('descripcion') ?? $producto['descripcion'] ?? '') ?></textarea>
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label">Precio</label>
-            <input type="number" name="precio" class="form-control"
-                   min="0" step="0.01"
-                   value="<?= esc(old('precio') ?? $producto['precio']) ?>"
+            <label>Precio</label>
+            <input type="number"
+                   name="precio"
+                   min="0.01"
+                   step="0.01"
+                   value="<?= esc(old('precio', $producto['precio'])) ?>"
                    required>
-        </div>
 
-        <div class="mb-3">
-            <label class="form-label">Stock</label>
-            <input type="number" name="stock" class="form-control"
-                   min="0" step="1"
-                   value="<?= esc(old('stock') ?? $producto['stock']) ?>"
+            <label>Stock</label>
+            <input type="number"
+                   name="stock"
+                   min="0"
+                   value="<?= esc(old('stock', $producto['stock'])) ?>"
                    required>
-        </div>
 
-        <button type="submit" class="btn btn-primary">Guardar cambios</button>
-        <a href="<?= base_url('productos') ?>" class="btn btn-secondary">Cancelar</a>
-    </form>
-</div>
+            <label>Supermercado</label>
+            <select name="supermercado_id" required>
+                <?php foreach ($supermercados as $super): ?>
+                    <option value="<?= esc($super['id']) ?>"
+                        <?= old('supermercado_id', $producto['supermercado_id']) == $super['id'] ? 'selected' : '' ?>>
+                        <?= esc($super['nombre']) ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+
+            <button type="submit" class="btn-guardar-edicion">
+                Guardar cambios
+            </button>
+
+            <a href="<?= site_url('productos') ?>"
+               class="btn-cancelar">
+                Cancelar
+            </a>
+
+        </form>
+
+    </section>
+
+</main>
+
+<footer>
+    CHANGO RIO 3 - Comparador de precios
+</footer>
+
 </body>
 </html>

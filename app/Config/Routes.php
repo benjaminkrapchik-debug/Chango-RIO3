@@ -39,3 +39,18 @@ $routes->post('carrito/finalizar', 'Productos::finalizarCompra');
 $routes->get('productos/vea', 'Productos::vea');
 $routes->get('productos/luconi', 'Productos::luconi');
 $routes->get('productos/caracol', 'Productos::caracol');
+
+$routes->get('productos/editar/(:num)', 'Productos::editar/$1');
+
+$routes->post('productos/actualizar/(:num)', 'Productos::actualizar/$1');
+
+// MERCADO PAGO
+$routes->post('carrito/finalizar', 'Productos::finalizarCompra');
+
+$routes->get('pagos/crear/(:num)', 'Pagos::crear/$1');
+
+$routes->get('pagos/aprobado', 'Pagos::aprobado');
+$routes->get('pagos/rechazado', 'Pagos::rechazado');
+$routes->get('pagos/pendiente', 'Pagos::pendiente');
+
+$routes->post('pagos/notificacion', 'Pagos::notificacion');

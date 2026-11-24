@@ -55,7 +55,8 @@ app.sessionSavePath = writable/session
 app.sessionMatchIP = false
 app.sessionTimeToUpdate = 300
 app.sessionRegenerateDestroy = false
-
+MERCADOPAGO_ACCESS_TOKEN = "TU_ACCESS_TOKEN_DE_PRUEBA"
+MP_NOTIFICATION_URL = "https://TU-DOMINIO-PUBLICO/pagos/notificacion"
 #--------------------------------------------------------------------
 # LOGGER
 #--------------------------------------------------------------------

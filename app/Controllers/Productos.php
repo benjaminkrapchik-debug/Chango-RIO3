@@ -3,18 +3,13 @@
 namespace App\Controllers;
 
 use App\Models\ProductosModel;
-use CodeIgniter\Controller;
 
 class Productos extends BaseController
 {
-    
-
     public function index()
     {
         return $this->mostrarProductos(null);
     }
-
-   
 
     public function vea()
     {
@@ -31,8 +26,7 @@ class Productos extends BaseController
         return $this->mostrarProductos('Caracol');
     }
 
-  
-
+    // MOSTRAR PRODUCTOS
     private function mostrarProductos($nombreSupermercado)
     {
         $db = \Config\Database::connect();
@@ -40,12 +34,8 @@ class Productos extends BaseController
         $buscar = trim((string) $this->request->getGet('buscar'));
 
         $consulta = $db->table('productos p')
-        ->select('p.*, s.nombre AS supermercado')
-            ->join(
-                'supermercados s',
-                's.id = p.supermercado_id',
-                'inner'
-            );
+            ->select('p.*, s.nombre AS supermercado')
+            ->join('supermercados s', 's.id = p.supermercado_id', 'inner');
 
         if ($nombreSupermercado !== null) {
             $consulta->where('s.nombre', $nombreSupermercado);
@@ -60,20 +50,18 @@ class Productos extends BaseController
             ->get()
             ->getResultArray();
 
-       
         $supermercados = $db->table('supermercados')
             ->orderBy('nombre', 'ASC')
             ->get()
             ->getResultArray();
 
-       
         $carrito = session()->get('carrito') ?? [];
 
         $totalCarrito = 0;
 
         foreach ($carrito as $item) {
             $totalCarrito +=
-                $item['precio'] * $item['cantidad'];
+                (float) $item['precio'] * (int) $item['cantidad'];
         }
 
         return view('productos/index', [
@@ -86,8 +74,7 @@ class Productos extends BaseController
         ]);
     }
 
-  
-
+    // AGREGAR PRODUCTO
     public function guardar()
     {
         $modelo = new ProductosModel();
@@ -137,7 +124,106 @@ class Productos extends BaseController
             ->with('mensaje', 'Producto agregado correctamente.');
     }
 
+    // MOSTRAR FORMULARIO PARA EDITAR
+    public function editar($id)
+    {
+        $modelo = new ProductosModel();
 
+        $producto = $modelo->find($id);
+
+        if (!$producto) {
+            return redirect()->to(site_url('productos'))
+                ->with('error', 'Producto no encontrado.');
+        }
+
+        $db = \Config\Database::connect();
+
+        $supermercados = $db->table('supermercados')
+            ->orderBy('nombre', 'ASC')
+            ->get()
+            ->getResultArray();
+
+        return view('productos/editar', [
+            'producto' => $producto,
+            'supermercados' => $supermercados
+        ]);
+    }
+
+    // ACTUALIZAR PRODUCTO
+    public function actualizar($id)
+    {
+        $modelo = new ProductosModel();
+
+        $producto = $modelo->find($id);
+
+        if (!$producto) {
+            return redirect()->to(site_url('productos'))
+                ->with('error', 'Producto no encontrado.');
+        }
+
+        $nombre = trim((string) $this->request->getPost('nombre'));
+        $precio = $this->request->getPost('precio');
+        $stock = $this->request->getPost('stock');
+        $supermercadoId = $this->request->getPost('supermercado_id');
+
+        if (
+            $nombre === '' ||
+            !is_numeric($precio) ||
+            $precio <= 0 ||
+            !is_numeric($stock) ||
+            $stock < 0 ||
+            !ctype_digit((string) $supermercadoId)
+        ) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Completá correctamente todos los datos.');
+        }
+
+        $db = \Config\Database::connect();
+
+        $supermercado = $db->table('supermercados')
+            ->where('id', $supermercadoId)
+            ->get()
+            ->getRowArray();
+
+        if (!$supermercado) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'El supermercado seleccionado no existe.');
+        }
+
+        $datos = [
+            'nombre' => $nombre,
+            'precio' => $precio,
+            'stock' => $stock,
+            'supermercado_id' => $supermercadoId
+        ];
+
+        if (!$modelo->update($id, $datos)) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'No se pudieron actualizar los datos.');
+        }
+
+        // ACTUALIZAR PRODUCTO EN EL CARRITO
+        $carrito = session()->get('carrito') ?? [];
+
+        if (isset($carrito[$id])) {
+            $carrito[$id]['nombre'] = $nombre;
+            $carrito[$id]['precio'] = $precio;
+
+            if ((int) $carrito[$id]['cantidad'] > (int) $stock) {
+                unset($carrito[$id]);
+            }
+
+            session()->set('carrito', $carrito);
+        }
+
+        return redirect()->to(site_url('productos'))
+            ->with('mensaje', 'Producto actualizado correctamente.');
+    }
+
+    // ELIMINAR PRODUCTO
     public function eliminar($id)
     {
         $modelo = new ProductosModel();
@@ -151,11 +237,17 @@ class Productos extends BaseController
 
         $modelo->delete($id);
 
+        $carrito = session()->get('carrito') ?? [];
+
+        unset($carrito[$id]);
+
+        session()->set('carrito', $carrito);
+
         return redirect()->back()
             ->with('mensaje', 'Producto eliminado correctamente.');
     }
 
-
+    // AGREGAR AL CARRITO
     public function agregarCarrito($id)
     {
         $modelo = new ProductosModel();
@@ -174,7 +266,7 @@ class Productos extends BaseController
                 ->with('error', 'La cantidad debe ser mayor a cero.');
         }
 
-        if ($cantidad > $producto['stock']) {
+        if ($cantidad > (int) $producto['stock']) {
             return redirect()->back()
                 ->with('error', 'No hay stock suficiente.');
         }
@@ -182,16 +274,18 @@ class Productos extends BaseController
         $carrito = session()->get('carrito') ?? [];
 
         $cantidadActual = isset($carrito[$id])
-            ? $carrito[$id]['cantidad']
+            ? (int) $carrito[$id]['cantidad']
             : 0;
 
-        if (($cantidadActual + $cantidad) > $producto['stock']) {
+        if (($cantidadActual + $cantidad) > (int) $producto['stock']) {
             return redirect()->back()
                 ->with('error', 'No hay stock suficiente para esa cantidad.');
         }
 
         if (isset($carrito[$id])) {
             $carrito[$id]['cantidad'] += $cantidad;
+            $carrito[$id]['precio'] = $producto['precio'];
+            $carrito[$id]['nombre'] = $producto['nombre'];
         } else {
             $carrito[$id] = [
                 'id' => $producto['id'],
@@ -207,8 +301,7 @@ class Productos extends BaseController
             ->with('mensaje', 'Producto agregado al carrito.');
     }
 
-   
-
+    // ELIMINAR DEL CARRITO
     public function eliminarCarrito($id)
     {
         $carrito = session()->get('carrito') ?? [];
@@ -221,7 +314,7 @@ class Productos extends BaseController
             ->with('mensaje', 'Producto eliminado del carrito.');
     }
 
-
+    // VACIAR CARRITO
     public function vaciarCarrito()
     {
         session()->remove('carrito');
@@ -230,7 +323,7 @@ class Productos extends BaseController
             ->with('mensaje', 'Carrito vaciado correctamente.');
     }
 
-   
+    // FINALIZAR COMPRA Y CREAR PEDIDO PENDIENTE
     public function finalizarCompra()
     {
         if (!session()->get('logueado')) {
@@ -238,7 +331,6 @@ class Productos extends BaseController
         }
 
         $usuarioId = session()->get('usuario_id');
-
         $carrito = session()->get('carrito') ?? [];
 
         if (empty($carrito)) {
@@ -250,77 +342,103 @@ class Productos extends BaseController
 
         $db->transBegin();
 
-        $total = 0;
-        $detalles = [];
+        try {
+            $total = 0;
+            $detalles = [];
 
-        foreach ($carrito as $item) {
+            // CONSULTAR PRODUCTOS Y PRECIOS REALES
+            foreach ($carrito as $item) {
 
-            $producto = $db->table('productos')
-                ->where('id', $item['id'])
-                ->get()
-                ->getRowArray();
+                $producto = $db->table('productos')
+                    ->where('id', $item['id'])
+                    ->get()
+                    ->getRowArray();
 
-            if (
-                !$producto ||
-                $item['cantidad'] > $producto['stock']
-            ) {
-                $db->transRollback();
+                if (!$producto) {
+                    throw new \RuntimeException(
+                        'Uno de los productos ya no existe.'
+                    );
+                }
 
-                return redirect()->to(site_url('productos'))
-                    ->with('error', 'No hay stock suficiente para ' . $item['nombre']);
+                $cantidad = (int) $item['cantidad'];
+
+                if (
+                    $cantidad < 1 ||
+                    $cantidad > (int) $producto['stock']
+                ) {
+                    throw new \RuntimeException(
+                        'No hay stock suficiente para ' . $producto['nombre']
+                    );
+                }
+
+                $precio = (float) $producto['precio'];
+                $subtotal = $precio * $cantidad;
+
+                $total += $subtotal;
+
+                $detalles[] = [
+                    'producto_id' => $producto['id'],
+                    'nombre_producto' => $producto['nombre'],
+                    'precio' => $precio,
+                    'cantidad' => $cantidad,
+                    'subtotal' => $subtotal
+                ];
             }
 
-            $precio = (float) $producto['precio'];
-            $cantidad = (int) $item['cantidad'];
+            // CREAR COMPRA PENDIENTE
+            $db->table('compras')->insert([
+                'usuario_id' => $usuarioId,
+                'total' => $total,
+                'estado' => 'pendiente'
+            ]);
 
-            $subtotal = $precio * $cantidad;
+            $compraId = $db->insertID();
 
-            $total += $subtotal;
+            if (!$compraId) {
+                throw new \RuntimeException(
+                    'No se pudo crear el pedido.'
+                );
+            }
 
-            $detalles[] = [
-                'producto_id' => $producto['id'],
-                'nombre_producto' => $producto['nombre'],
-                'precio' => $precio,
-                'cantidad' => $cantidad,
-                'subtotal' => $subtotal
-            ];
-        }
+            // GUARDAR DETALLES DE LA COMPRA
+            foreach ($detalles as $detalle) {
+                $detalle['compra_id'] = $compraId;
 
-        $db->table('compras')->insert([
-            'usuario_id' => $usuarioId,
-            'total' => $total
-        ]);
+                $db->table('detalle_compras')->insert($detalle);
+            }
 
-        $compraId = $db->insertID();
+            // CREAR REGISTRO DEL PAGO
+            $db->table('pagos')->insert([
+                'compra_id' => $compraId,
+                'usuario_id' => $usuarioId,
+                'monto' => $total,
+                'estado' => 'pending'
+            ]);
 
-        foreach ($detalles as $detalle) {
+            if ($db->transStatus() === false) {
+                throw new \RuntimeException(
+                    'No se pudo guardar el pedido y sus detalles.'
+                );
+            }
 
-            $detalle['compra_id'] = $compraId;
+            $db->transCommit();
 
-            $db->table('detalle_compras')->insert($detalle);
+            // REDIRIGIR AL CHECKOUT DE MERCADO PAGO
+            return redirect()->to(
+                site_url('pagos/crear/' . $compraId)
+            );
 
-            $db->table('productos')
-                ->where('id', $detalle['producto_id'])
-                ->set(
-                    'stock',
-                    'stock - ' . (int) $detalle['cantidad'],
-                    false
-                )
-                ->update();
-        }
+        } catch (\Throwable $e) {
 
-        if ($db->transStatus() === false) {
             $db->transRollback();
 
+            log_message(
+                'error',
+                'Error al crear compra: ' . $e->getMessage()
+            );
+
             return redirect()->to(site_url('productos'))
-                ->with('error', 'No se pudo guardar la compra.');
+                ->with('error', $e->getMessage());
         }
-
-        $db->transCommit();
-
-        session()->remove('carrito');
-
-        return redirect()->to(site_url('historial'))
-            ->with('mensaje', '¡Compra registrada correctamente!');
     }
 }
