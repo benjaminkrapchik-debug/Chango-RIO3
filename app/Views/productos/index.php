@@ -5,35 +5,197 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Comparador de precios</title>
+    <title>Comparador de precios - CHANGO RIO 3</title>
 
     <link rel="stylesheet" href="<?= base_url('assets/css/productos.css') ?>">
 </head>
 
 <body>
 
-<header class="barra">
-    <nav>
-        <a href="<?= site_url('/') ?>" class="marca">Inicio</a>
-        <a href="<?= base_url('productos') ?>" class="activo">Productos</a>
+<header class="navbar">
+
+    <a href="<?= site_url('dashboard') ?>" class="marca">
+        CHANGO RIO 3
+    </a>
+
+    <nav class="menu-derecha">
+
+        <?php if (session()->get('logueado')): ?>
+
+            <span class="saludo">
+                Hola, <?= esc(session()->get('usuario_nombre')) ?>
+            </span>
+
+            <a href="<?= site_url('/') ?>" class="btn btn-azul btn-grande">
+                Inicio
+            </a>
+
+            <a href="<?= site_url('supermercados') ?>" class="btn btn-azul btn-grande">
+                Supermercados
+            </a>
+
+            <a href="<?= site_url('historial') ?>" class="btn btn-azul btn-grande">
+                Historial
+            </a>
+
+            <form action="<?= site_url('logout') ?>" method="post" class="form-logout">
+                <?= csrf_field() ?>
+                <button type="submit" class="btn btn-eliminar btn-grande">
+                    Cerrar sesión
+                </button>
+            </form>
+
+        <?php else: ?>
+
+            <a href="<?= site_url('login') ?>" class="btn btn-azul">
+                Ingresar
+            </a>
+
+            <a href="<?= site_url('registro') ?>" class="btn btn-azul">
+                Registrarse
+            </a>
+
+        <?php endif; ?>
+
     </nav>
 
-    <form action="<?= base_url('logout') ?>" method="post">
-        <?= csrf_field() ?>
-        <button type="submit" class="cerrar">Cerrar sesión</button>
-    </form>
 </header>
+
+
+<?php
+$cantidadCarrito = 0;
+
+if (!empty($carrito)) {
+    foreach ($carrito as $item) {
+        $cantidadCarrito += (int)$item['cantidad'];
+    }
+}
+?>
+
+<!-- BOTON FLOTANTE DEL CARRITO -->
+
+<button type="button"
+        class="boton-carrito-flotante"
+        onclick="abrirCarrito()">
+
+    🛒 Mi carrito
+
+    <span class="contador-carrito">
+        <?= $cantidadCarrito ?>
+    </span>
+
+</button>
+
+
+<!-- VENTANA EMERGENTE DEL CARRITO -->
+
+<div id="fondoCarrito" class="fondo-carrito">
+
+    <section class="ventana-carrito">
+
+        <button type="button"
+                class="cerrar-carrito"
+                onclick="cerrarCarrito()">
+            ✕
+        </button>
+
+        <h2>🛒 Mi carrito</h2>
+
+        <?php if (!empty($carrito)): ?>
+
+            <?php foreach ($carrito as $item): ?>
+
+                <div class="producto-carrito">
+
+                    <div>
+                        <h3><?= esc($item['nombre']) ?></h3>
+
+                        <p>
+                            Precio: $
+                            <?= number_format($item['precio'], 0, ',', '.') ?>
+                        </p>
+
+                        <p>
+                            Cantidad: <?= esc($item['cantidad']) ?>
+                        </p>
+
+                        <strong>
+                            Subtotal: $
+                            <?= number_format(
+                                $item['precio'] * $item['cantidad'],
+                                0, ',', '.'
+                            ) ?>
+                        </strong>
+                    </div>
+
+                    <form action="<?= base_url('carrito/eliminar/' . $item['id']) ?>"
+                          method="post">
+
+                        <?= csrf_field() ?>
+
+                        <button type="submit" class="btn-eliminar-carrito">
+                            Eliminar
+                        </button>
+
+                    </form>
+
+                </div>
+
+            <?php endforeach; ?>
+
+            <div class="total-carrito">
+
+                <h2>
+                    TOTAL: $
+                    <?= number_format($totalCarrito, 0, ',', '.') ?>
+                </h2>
+
+                <form action="<?= base_url('carrito/vaciar') ?>" method="post">
+                    <?= csrf_field() ?>
+
+                    <button type="submit" class="btn-vaciar">
+                        Vaciar carrito
+                    </button>
+                </form>
+
+                <form action="<?= site_url('carrito/finalizar') ?>" method="post">
+                    <?= csrf_field() ?>
+
+                    <button type="submit" class="btn-comprar">
+                        Finalizar compra
+                    </button>
+                </form>
+
+            </div>
+
+        <?php else: ?>
+
+            <p class="carrito-vacio">
+                🛒 Todavía no agregaste productos al carrito.
+            </p>
+
+        <?php endif; ?>
+
+    </section>
+
+</div>
+
 
 <main class="contenido">
 
     <h1>Comparador de precios</h1>
-    <p class="subtitulo">Consultá y compará los productos disponibles.</p>
+
+    <p class="subtitulo">
+        Consultá y compará los productos disponibles.
+    </p>
+
 
     <?php if (session()->getFlashdata('mensaje')): ?>
         <p class="aviso">
             <?= esc(session()->getFlashdata('mensaje')) ?>
         </p>
     <?php endif; ?>
+
 
     <?php if (session()->getFlashdata('error')): ?>
         <p class="error">
@@ -69,7 +231,7 @@
     </button>
 
 
-    <!-- FORMULARIO -->
+    <!-- FORMULARIO PARA AGREGAR PRODUCTOS -->
 
     <section id="formAgregar" class="formulario oculto">
 
@@ -124,87 +286,7 @@
     </section>
 
 
-    <!-- CARRITO -->
-
-    <section class="seccion-carrito">
-
-        <h2>Mi carrito</h2>
-
-        <?php if (!empty($carrito)): ?>
-
-            <?php foreach ($carrito as $item): ?>
-
-                <div class="producto-carrito">
-
-                    <h3><?= esc($item['nombre']) ?></h3>
-
-                    <p>Precio: $
-                        <?= number_format($item['precio'], 0, ',', '.') ?>
-                    </p>
-
-                    <p>Cantidad: <?= esc($item['cantidad']) ?></p>
-
-                    <strong>
-                        Subtotal: $
-                        <?= number_format(
-                            $item['precio'] * $item['cantidad'],
-                            0, ',', '.'
-                        ) ?>
-                    </strong>
-
-                    <form action="<?= base_url('carrito/eliminar/' . $item['id']) ?>"
-                          method="post">
-
-                        <?= csrf_field() ?>
-
-                        <button type="submit" class="btn-eliminar-carrito">
-                            Eliminar
-                        </button>
-                       
-
-                    </form>
-
-                </div>
-
-            <?php endforeach; ?>
-
-            <div class="total-carrito">
-
-                <h2>
-                    TOTAL: $
-                    <?= number_format($totalCarrito, 0, ',', '.') ?>
-                </h2>
-
-                <form action="<?= base_url('carrito/vaciar') ?>" method="post">
-                    <?= csrf_field() ?>
-
-                    <button type="submit" class="btn-vaciar">
-                        Vaciar carrito
-                    </button>
-                </form>
-                <form action="<?= site_url('carrito/finalizar') ?>" method="post">
-
-<?= csrf_field() ?>
-
-<button type="submit" class="btn-comprar">
-    Finalizar compra
-</button>
-
-</form>
-            </div>
-
-        <?php else: ?>
-
-            <p class="carrito-vacio">
-                Todavía no agregaste productos al carrito.
-            </p>
-
-        <?php endif; ?>
-
-    </section>
-
-
-    <!-- LISTA DE PRODUCTOS -->
+    <!-- PRODUCTOS DISPONIBLES -->
 
     <h2 class="titulo">Productos disponibles</h2>
 
@@ -214,50 +296,54 @@
 
             <?php foreach ($productos as $producto): ?>
 
+                <?php
+                $imagenesFijas = [
+                    2  => 'images16.jfif',
+                    3  => '02-leche.png',
+                    4  => '03-arroz.png',
+                    6  => '04-yerba.png',
+                    7  => '05-oreo.png',
+                    8  => '06-chocolinas.png',
+                    9  => '07-fideos.png',
+                    10 => '08-aceite.png',
+                    11 => '09-harina.png',
+                    12 => '10-agua.png',
+                    13 => '11-jabon.png',
+                    14 => '12-carne.png',
+                    15 => '13-detergente.png',
+                    16 => '14-lavandina.png',
+                    17 => '15-papel.png',
+                    18 => '16-cafe.png',
+                    19 => '17-dulce.png',
+                    20 => '18-fernet.png',
+                    21 => '19-vino.png',
+                    22 => '20-whisky.png',
+                ];
+
+                $archivoImagen = $imagenesFijas[$producto['id']] ?? null;
+                ?>
+
                 <article class="tarjeta">
 
+                    <!-- IMAGEN -->
 
-<?php
-$imagenesFijas = [
-    2  => '../../public/assets/img/uploads/productos/images16.jfif',
-    3  => '02-leche.png',
-    4  => '03-arroz.png',
-    6  => '04-yerba.png',
-    7  => '05-oreo.png',
-    8  => '06-chocolinas.png',
-    9  => '07-fideos.png',
-    10 => '08-aceite.png',
-    11 => '09-harina.png',
-    12 => '10-agua.png',
-    13 => '11-jabon.png',
-    14 => '12-carne.png',
-    15 => '13-detergente.png',
-    16 => '14-lavandina.png',
-    17 => '15-papel.png',
-    18 => '16-cafe.png',
-    19 => '17-dulce.png',
-    20 => '18-fernet.png',
-    21 => '19-vino.png',
-    22 => '20-whisky.png',
-  
-];
+                    <div class="foto">
 
-$archivoImagen = $imagenesFijas[$producto['id']] ?? null;
-?>
+                        <?php if ($archivoImagen): ?>
 
-<div class="foto" style="width: 120px; height: 120px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
-    <?php if ($archivoImagen): ?>
-        <img
-            src="<?= base_url('uploads/productos/' . $archivoImagen) ?>"
-            class="imagen-producto"
-            alt="<?= esc($producto['nombre']) ?>"
-            style="max-width: 100%; max-height: 100%; object-fit: contain; font-size: 12px;"
-        >
-    <?php else: ?>
-        <span>🛒</span>
-    <?php endif; ?>
-</div>
+                            <img
+                                src="<?= base_url('uploads/productos/' . $archivoImagen) ?>"
+                                class="imagen-producto"
+                                alt="<?= esc($producto['nombre']) ?>"
+                            >
 
+                        <?php else: ?>
+
+                            <span>🛒</span>
+
+                        <?php endif; ?>
+
+                    </div>
 
 
                     <!-- INFORMACION -->
@@ -288,7 +374,7 @@ $archivoImagen = $imagenesFijas[$producto['id']] ?? null;
                         <?php endif; ?>
 
 
-                        <!-- ELIMINAR -->
+                        <!-- ELIMINAR PRODUCTO -->
 
                         <form action="<?= base_url('productos/eliminar/' . $producto['id']) ?>"
                               method="post"
@@ -303,7 +389,7 @@ $archivoImagen = $imagenesFijas[$producto['id']] ?? null;
                         </form>
 
 
-                        <!-- CARRITO -->
+                        <!-- AGREGAR AL CARRITO -->
 
                         <form action="<?= base_url('carrito/agregar/' . $producto['id']) ?>"
                               method="post"
@@ -323,7 +409,6 @@ $archivoImagen = $imagenesFijas[$producto['id']] ?? null;
                             <button type="submit" class="btn-carrito">
                                 Agregar al carrito
                             </button>
-                            
 
                         </form>
 
@@ -345,9 +430,39 @@ $archivoImagen = $imagenesFijas[$producto['id']] ?? null;
 
 </main>
 
+
 <footer>
     2026 - Todos los derechos reservados.
 </footer>
+
+
+<!-- JAVASCRIPT -->
+
+<script>
+
+function abrirCarrito() {
+    document.getElementById('fondoCarrito').classList.add('activo');
+}
+
+function cerrarCarrito() {
+    document.getElementById('fondoCarrito').classList.remove('activo');
+}
+
+// Cerrar tocando fuera de la ventana
+document.getElementById('fondoCarrito').addEventListener('click', function(e) {
+    if (e.target === this) {
+        cerrarCarrito();
+    }
+});
+
+// Cerrar con ESC
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        cerrarCarrito();
+    }
+});
+
+</script>
 
 </body>
 </html>

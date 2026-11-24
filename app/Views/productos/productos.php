@@ -11,13 +11,11 @@
 </head>
 <body>
 
-
-   
-
 <nav class="barra">
     <div>
         <a href="<?= base_url('/') ?>">Inicio</a>
         <a href="<?= base_url('productos') ?>">Productos</a>
+        <a href="<?= site_url('supermercados') ?>">Supermercados</a>
     </div>
 
     <form action="<?= base_url('logout') ?>" method="post">

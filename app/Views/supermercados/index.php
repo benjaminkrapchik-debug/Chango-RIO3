@@ -16,7 +16,7 @@
     <nav>
         <a href="<?= site_url('productos') ?>">Productos</a>
         <a href="<?= site_url('/') ?>">Inicio</a>
-
+        <a href="<?= site_url('historial') ?>">Historial</a>
         <form action="<?= site_url('logout') ?>" method="post">
             <?= csrf_field() ?>
             <button type="submit">Cerrar sesión</button>
